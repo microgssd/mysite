@@ -4,9 +4,10 @@ import { SERVICES } from '../data/index.js';
 import { Reveal, SectionHeader, CyberServiceCard, AnimProcess } from '../components/index.js';
 
 const GROUPS = [
-  { label:'Web Development', sub:'Websites that perform, convert, and rank.', ids:['web-info','ecommerce'] },
+  { label:'Web & E-Commerce', sub:'Websites and stores that perform, convert, and rank.', ids:['web-info','ecommerce'] },
   { label:'App Development', sub:'Native and cross-platform mobile experiences.', ids:['android','ios','hybrid'] },
-  { label:'Growth & Revenue', sub:'Marketing, payments, and content that converts.', ids:['digital','payment','blog'] },
+  { label:'AI & Automation', sub:'Intelligent systems, bots, and ML-powered products.', ids:['ml-ai','ai-chatbot','telegram-bot'] },
+  { label:'Growth & Platforms', sub:'Marketing, payments, SaaS, and content that converts.', ids:['digital','payment','blog','saas'] },
 ];
 
 export default function ServicesPage({ go }) {
