@@ -173,7 +173,7 @@ export const PRICING = [
 ];
 
 export const TEAM = [
-  { name:'Sayan Dhar', role:'CEO & Development Head', em:'👨‍💻', skills:'React · Next.js · Node.js · MongoDB · System Architecture', bio:'Full-stack architect and founder of Aquron with 5+ years building scalable digital products for 150+ clients across 30+ countries. Personally leads every major technical decision and client engagement.', crChar:'Lead Dev', crEmoji:'⚡', col:'#FFD700' },
+  { name:'Sayan Dhar', role:'CEO & Development Head', em:'👨‍💻', skills:'React · Next.js · Node.js · MongoDB · System Architecture', bio:'Full-stack architect and founder of Aquron with 5+ years building scalable digital products for 150+ clients across 6+ countries. Personally leads every major technical decision and client engagement.', crChar:'Lead Dev', crEmoji:'⚡', col:'#FFD700' },
   { name:'Ankan Ghosh', role:'Operations Manager', em:'🎯', skills:'Project Management · Client Relations · Agile · Process Optimisation', bio:'The operational backbone of Aquron. Ensures every project ships on time, every client receives white-glove service, and no detail ever falls through the cracks.', crChar:'Ops Lead', crEmoji:'🎯', col:'#00C9FF' },
 ];
 
