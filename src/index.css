@@ -144,9 +144,9 @@ body {
 /* ── SECTION WRAPPERS ── */
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
 .section-pad { padding: 90px 0; }
-.section-title { font-family: var(--font-head); font-size: clamp(26px,4vw,46px); font-weight: 800; color: #fff; margin-bottom: 14px; letter-spacing: -.5px; line-height: 1.12; }
-.section-label { color: var(--c1); font-weight: 700; font-size: 11.5px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
-.section-sub { color: rgba(255,255,255,.45); font-size: 16px; max-width: 540px; margin: 0 auto; line-height: 1.75; }
+.section-title { font-family: 'Orbitron',monospace; font-size: clamp(20px,3.5vw,38px); font-weight: 900; color: #fff; margin-bottom: 14px; letter-spacing: 1px; line-height: 1.15; text-shadow: 0 0 30px rgba(0,201,255,0.2); }
+.section-label { color: var(--c1); font-family: 'Orbitron',monospace; font-weight: 700; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
+.section-sub { color: rgba(148,200,240,0.6); font-family: 'Rajdhani',sans-serif; font-size: 15px; max-width: 540px; margin: 0 auto; line-height: 1.75; font-weight: 500; letter-spacing: 0.3px; }
 
 /* ── CARDS ── */
 .card {
@@ -214,23 +214,24 @@ body {
 .tag-pill.active { background: var(--c1); color: #030412; }
 
 /* ── PROCESS STEPS ── */
-.proc-wrap { display: flex; flex-wrap: wrap; gap: 6px; padding: 20px 0; }
-.proc-step { flex: 1 1 80px; text-align: center; position: relative; padding: 0 4px; }
-.proc-line { position: absolute; top: 18px; left: 62%; right: -38%; height: 2px; background: rgba(255,255,255,.07); z-index: 0; }
+.proc-wrap { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 0; padding: 20px 4px; scrollbar-width: none; }
+.proc-step { flex: 1 1 0; min-width: 54px; text-align: center; position: relative; padding: 0 2px; }
+.proc-line { position: absolute; top: 19px; left: 52%; right: -48%; height: 1px; background: rgba(0,201,255,0.15); z-index: 0; }
 .proc-line-fill { height: 100%; background: linear-gradient(90deg, var(--c1), var(--c2)); width: 0%; transition: width .65s ease; }
 .proc-dot {
-  position: relative; z-index: 1; width: 38px; height: 38px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
+  position: relative; z-index: 1; width: 36px; height: 36px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;
   transition: all .45s cubic-bezier(.34,1.56,.64,1);
-  border: 2px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05);
+  border: 1px solid rgba(0,201,255,0.25); background: rgba(0,201,255,0.05);
+  clip-path: polygon(8px 0%,100% 0%,100% calc(100% - 8px),calc(100% - 8px) 100%,0% 100%,0% 8px);
 }
 .proc-dot.active {
-  border-color: var(--c1); background: linear-gradient(135deg, var(--c1), var(--c2));
-  transform: scale(1.25); box-shadow: 0 0 20px rgba(0,201,255,.55);
+  border-color: var(--c1); background: linear-gradient(135deg, #00C9FF, #4FFFB0);
+  transform: scale(1.2); box-shadow: 0 0 16px rgba(0,201,255,0.7), 0 0 30px rgba(0,201,255,0.3);
 }
 .proc-dot.active .proc-num { color: #030412; }
-.proc-num { font-family: var(--font-head); font-weight: 800; font-size: 13px; color: rgba(255,255,255,.38); }
-.proc-label { font-size: 11px; color: rgba(255,255,255,.42); line-height: 1.3; }
+.proc-num { font-family: 'Orbitron',monospace; font-weight: 900; font-size: 11px; color: rgba(0,201,255,0.6); }
+.proc-label { font-size: clamp(7px,1.1vw,10px); color: rgba(148,200,240,0.55); line-height: 1.3; font-family: 'Rajdhani',sans-serif; font-weight: 600; letter-spacing: 0.3px; margin-top: 4px; }
 .proc-step.active .proc-label { color: #fff; font-weight: 600; }
 
 /* ── MODAL ── */
@@ -366,7 +367,7 @@ footer {
   /* Process */
   .proc-wrap    { gap: 2px !important; }
   .proc-step    { flex: 1 1 50px !important; }
-  .proc-label   { font-size: 9px !important; }
+  .proc-label   { font-size: 8px !important; }
   .proc-dot     { width: 30px !important; height: 30px !important; }
   .proc-num     { font-size: 10px !important; }
 
@@ -414,7 +415,7 @@ footer {
   .wrap         { padding: 0 12px !important; }
   .section-pad  { padding: 36px 0 !important; }
   .proc-step    { flex: 1 1 40px !important; }
-  .proc-label   { display: none; }
+  .proc-label   { font-size: 7px !important; }
   .rcard        { min-width: 200px !important; max-width: 200px !important; }
 }
 
