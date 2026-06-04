@@ -30,38 +30,30 @@ function PremiumTyper() {
 // Cyberpunk hero visual — data grid + floating nodes
 function CyberHeroVisual() {
   return (
-    <div style={{ position:'relative', width:'100%', marginTop:44, height:120, overflow:'hidden' }}>
+    <div style={{ position:'relative', width:'100%', marginTop:'clamp(16px,4vw,44px)', height:'clamp(80px,15vw,120px)', overflow:'visible' }}>
       {/* Horizontal data lines */}
       {[0,1,2,3].map(i => (
-        <motion.div key={i} style={{ position:'absolute', left:0, right:0, height:1, top:`${20+i*24}%`,
-          background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.25),rgba(0,201,255,0.1),transparent)' }}
-          animate={{ opacity:[0.3,0.7,0.3] }} transition={{ duration:2+i*0.4, repeat:Infinity, delay:i*0.3 }} />
+        <motion.div key={i} style={{ position:'absolute', left:0, right:0, height:1, top:`${20+i*22}%`,
+          background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.3),rgba(0,201,255,0.12),transparent)' }}
+          animate={{ opacity:[0.3,0.8,0.3] }} transition={{ duration:2+i*0.4, repeat:Infinity, delay:i*0.3 }} />
       ))}
-      {/* Floating tech nodes */}
-      {SERVICES.map((s,i) => (
-        <motion.div key={s.id}
-          style={{ position:'absolute', left:`${8+i*12}%`, top:'50%',
-            width:40, height:40, borderRadius:6,
-            border:`1px solid ${s.col}55`, background:`${s.col}08`,
-            display:'flex', alignItems:'center', justifyContent:'center',
-            fontFamily:'Orbitron,monospace', fontSize:8, color:s.col, fontWeight:700,
-          }}
-          animate={{ y:[0,-8,0], opacity:[0.5,1,0.5] }}
-          transition={{ duration:2+i*0.25, repeat:Infinity, ease:'easeInOut', delay:i*0.15 }}
-        >
-          {s.id.split('-').map(w=>w[0].toUpperCase()).join('')}
-        </motion.div>
-      ))}
-      {/* Connection lines between nodes */}
-      <svg style={{ position:'absolute', inset:0, width:'100%', height:'100%', pointerEvents:'none' }} viewBox="0 0 800 120">
-        {SERVICES.map((_,i) => i < SERVICES.length-1 ? (
-          <motion.line key={i}
-            x1={64+i*96} y1="60" x2={64+(i+1)*96} y2="60"
-            stroke="rgba(0,201,255,0.2)" strokeWidth="0.8" strokeDasharray="4,4"
-            animate={{ strokeOpacity:[0.15,0.4,0.15] }}
-            transition={{ duration:2, repeat:Infinity, delay:i*0.2 }} />
-        ) : null)}
-      </svg>
+      {/* Floating service nodes — 2 rows on mobile via CSS grid equivalent */}
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(8,1fr)', gap:6, alignItems:'center', height:'clamp(60px,12vw,90px)' }}>
+        {SERVICES.map((s,i) => (
+          <motion.div key={s.id}
+            style={{ width:'100%', aspectRatio:'1', maxWidth:56, margin:'0 auto',
+              borderRadius:8, border:`1px solid ${s.col}66`, background:`${s.col}0d`,
+              display:'flex', alignItems:'center', justifyContent:'center',
+              fontFamily:'Orbitron,monospace', fontSize:'clamp(6px,1.2vw,9px)', color:s.col, fontWeight:800,
+              boxShadow:`0 0 10px ${s.col}22`, letterSpacing:0.5,
+            }}
+            animate={{ y:[0,-6,0], opacity:[0.6,1,0.6] }}
+            transition={{ duration:2+i*0.22, repeat:Infinity, ease:'easeInOut', delay:i*0.12 }}
+          >
+            {s.id.split('-').map(w=>w[0].toUpperCase()).join('')}
+          </motion.div>
+        ))}
+      </div>
       {/* Bottom scan bar */}
       <div style={{ position:'absolute', bottom:0, left:0, right:0, height:2,
         background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.6),rgba(79,255,176,0.4),transparent)' }}>
@@ -73,6 +65,7 @@ function CyberHeroVisual() {
     </div>
   );
 }
+
 
 export default function HomePage({ go }) {
   const [selectedModal, setSelectedModal] = useState(null);
@@ -119,16 +112,41 @@ export default function HomePage({ go }) {
         </motion.div>
       </section>
 
-      {/* STATS */}
-      <div style={{ padding:'clamp(26px,5vw,40px) clamp(16px,5vw,32px)', background:'rgba(0,201,255,0.025)', borderTop:'1px solid rgba(0,201,255,0.1)', borderBottom:'1px solid rgba(0,201,255,0.1)' }}>
+      {/* STATS — cyberpunk style */}
+      <div style={{ padding:'clamp(22px,4vw,38px) clamp(16px,5vw,32px)', background:'rgba(0,5,20,0.7)', borderTop:'1px solid rgba(0,201,255,0.12)', borderBottom:'1px solid rgba(0,201,255,0.12)', position:'relative', overflow:'hidden' }}>
+        {/* Scan line */}
+        <motion.div style={{ position:'absolute', left:0, right:0, height:1, background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.3),transparent)' }} animate={{ top:['0%','100%'] }} transition={{ duration:3, repeat:Infinity, ease:'linear' }}/>
         <div style={{ maxWidth:900, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16 }}>
-          {[{n:'150+',l:'Projects'},{n:'98%',l:'Satisfaction'},{n:'5+',l:'Years'},{n:'30+',l:'Countries'}].map((s,i) => (
+          {[
+            {n:'150+', l:'Projects', col:'#00C9FF', icon:'◈'},
+            {n:'98%',  l:'Satisfaction', col:'#4FFFB0', icon:'◎'},
+            {n:'5+',   l:'Years', col:'#FFD700', icon:'◆'},
+            {n:'30+',  l:'Countries', col:'#FC5C7D', icon:'◉'},
+          ].map((s,i) => (
             <Reveal key={i} delay={i*.08}>
-              <div style={{ textAlign:'center' }}>
-                <motion.div style={{ fontSize:'clamp(24px,4vw,42px)', fontWeight:800, fontFamily:'Sora,sans-serif', marginBottom:4, letterSpacing:'-1px' }} animate={{ scale:[1,1.04,1] }} transition={{ duration:3, repeat:Infinity, delay:i*.5 }}>
-                  <span style={{ background:'linear-gradient(135deg,#00C9FF,#4FFFB0)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>{s.n}</span>
+              <div style={{ textAlign:'center', position:'relative', padding:'14px 8px' }}>
+                {/* Cyber frame */}
+                <div style={{ position:'absolute', inset:0, borderRadius:8, border:`1px solid ${s.col}22`, background:`${s.col}05` }}/>
+                {/* Corner brackets */}
+                <div style={{ position:'absolute', top:4, left:4, width:8, height:8, borderTop:`1.5px solid ${s.col}77`, borderLeft:`1.5px solid ${s.col}77` }}/>
+                <div style={{ position:'absolute', top:4, right:4, width:8, height:8, borderTop:`1.5px solid ${s.col}77`, borderRight:`1.5px solid ${s.col}77` }}/>
+                <div style={{ position:'absolute', bottom:4, left:4, width:8, height:8, borderBottom:`1.5px solid ${s.col}77`, borderLeft:`1.5px solid ${s.col}77` }}/>
+                <div style={{ position:'absolute', bottom:4, right:4, width:8, height:8, borderBottom:`1.5px solid ${s.col}77`, borderRight:`1.5px solid ${s.col}77` }}/>
+                {/* Icon */}
+                <div style={{ fontFamily:'monospace', fontSize:14, color:s.col, opacity:0.6, marginBottom:4 }}>{s.icon}</div>
+                {/* Number with glitch */}
+                <motion.div style={{ position:'relative' }} animate={{ scale:[1,1.03,1] }} transition={{ duration:3, repeat:Infinity, delay:i*.5 }}>
+                  <span style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(22px,4vw,44px)', fontWeight:900, color:s.col, letterSpacing:'-0.5px',
+                    textShadow:`0 0 20px ${s.col}88, 0 0 40px ${s.col}44` }}>
+                    {s.n}
+                  </span>
+                  {/* Glitch copy */}
+                  <motion.span style={{ position:'absolute', left:2, top:0, fontFamily:'Orbitron,monospace', fontSize:'clamp(22px,4vw,44px)', fontWeight:900, color:s.col, opacity:0, letterSpacing:'-0.5px' }}
+                    animate={{ opacity:[0,0.3,0], x:[0,3,0] }} transition={{ duration:4, repeat:Infinity, delay:i*1.2 }}>
+                    {s.n}
+                  </motion.span>
                 </motion.div>
-                <div style={{ color:'rgba(255,255,255,0.42)', fontSize:13, fontWeight:500 }}>{s.l}</div>
+                <div style={{ color:'rgba(255,255,255,0.35)', fontSize:11, fontWeight:600, fontFamily:'Rajdhani,sans-serif', letterSpacing:1.5, textTransform:'uppercase', marginTop:4 }}>{s.l}</div>
               </div>
             </Reveal>
           ))}
