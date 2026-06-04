@@ -248,7 +248,7 @@ function CyberStatsSection() {
         <StatBox n="150+" l="Projects"    col="#00C9FF" icon="◈" delay={0}    />
         <StatBox n="98%"  l="Satisfaction" col="#4FFFB0" icon="◎" delay={0.1} />
         <StatBox n="5+"   l="Years"        col="#FFD700" icon="◆" delay={0.2} />
-        <StatBox n="30+"  l="Countries"    col="#FC5C7D" icon="◉" delay={0.3} />
+        <StatBox n="6+"  l="Countries"    col="#FC5C7D" icon="◉" delay={0.3} />
       </div>
     </div>
   );
@@ -279,7 +279,7 @@ export default function HomePage({ go }) {
 
           <motion.div style={{ display:'inline-flex', alignItems:'center', gap:9, background:'rgba(0,201,255,0.08)', border:'1px solid rgba(0,201,255,0.28)', borderRadius:24, padding:'6px 18px', marginBottom:24, fontSize:'clamp(10px,1.5vw,13px)', color:'#00C9FF', fontWeight:700 }} initial={{ scale:0 }} animate={{ scale:1 }} transition={{ delay:.2, type:'spring' }}>
             <span style={{ width:6, height:6, borderRadius:'50%', background:'#4FFFB0', display:'inline-block', animation:'pulse 2s infinite', boxShadow:'0 0 8px #4FFFB0' }} />
-            Trusted by 150+ clients · 30+ countries · Kolkata, India
+            Trusted by 150+ clients · 6+ countries · Kolkata, India
           </motion.div>
 
           <h1 style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(22px,4.5vw,58px)', fontWeight:900, lineHeight:1.1, marginBottom:12, color:'#fff', letterSpacing:'clamp(0px,0.02em,2px)', textShadow:'0 0 40px rgba(0,201,255,0.3)' }}>
