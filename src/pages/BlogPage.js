@@ -5,6 +5,104 @@ import { BLOG_POSTS } from '../data/index.js';
 const ALL_TAGS = [...new Set(BLOG_POSTS.flatMap(p => p.tags))];
 const ALL_CATS = [...new Set(BLOG_POSTS.map(p => p.cat))];
 
+// Unique icon per blog category — no two look the same
+function BLOG_CAT_ICON({ cat, col, em }) {
+  const icons = {
+    'Web Dev': (
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <rect x="4" y="10" width="56" height="40" rx="5" stroke={col} strokeWidth="1.5" fill={`${col}10`}/>
+        <line x1="4" y1="20" x2="60" y2="20" stroke={col} strokeWidth="1" opacity="0.5"/>
+        <circle cx="11" cy="15" r="2" fill={col} opacity="0.7"/>
+        <circle cx="17" cy="15" r="2" fill={col} opacity="0.5"/>
+        <circle cx="23" cy="15" r="2" fill={col} opacity="0.3"/>
+        <path d="M14 30 L20 36 L14 42" stroke={col} strokeWidth="2" fill="none" strokeLinecap="round"/>
+        <path d="M24 42 L36 42" stroke={col} strokeWidth="2" strokeLinecap="round"/>
+        <rect x="20" y="52" width="24" height="3" rx="1.5" fill={col} opacity="0.4"/>
+        <line x1="32" y1="50" x2="32" y2="52" stroke={col} strokeWidth="1" opacity="0.4"/>
+      </svg>
+    ),
+    'Mobile': (
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <rect x="20" y="4" width="24" height="42" rx="5" stroke={col} strokeWidth="1.5" fill={`${col}10`}/>
+        <line x1="20" y1="12" x2="44" y2="12" stroke={col} strokeWidth="1" opacity="0.5"/>
+        <line x1="20" y1="38" x2="44" y2="38" stroke={col} strokeWidth="1" opacity="0.5"/>
+        <circle cx="32" cy="43" r="2" stroke={col} strokeWidth="1" fill="none" opacity="0.6"/>
+        <rect x="24" y="16" width="16" height="18" rx="2" fill={`${col}15`} stroke={col} strokeWidth="0.8"/>
+        <path d="M27 22 L29 25 L33 20" stroke={col} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+        {/* Signal waves right */}
+        <path d="M48 20 Q52 24 48 28" stroke={col} strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.7"/>
+        <path d="M50 17 Q56 24 50 31" stroke={col} strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.4"/>
+      </svg>
+    ),
+    'Payments': (
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <rect x="4" y="16" width="48" height="30" rx="5" stroke={col} strokeWidth="1.5" fill={`${col}10`}/>
+        <rect x="4" y="24" width="48" height="8" fill={`${col}20`}/>
+        <rect x="8" y="32" width="10" height="8" rx="2" stroke={col} strokeWidth="1" fill={`${col}15`}/>
+        <line x1="24" y1="34" x2="40" y2="34" stroke={col} strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+        <line x1="24" y1="38" x2="36" y2="38" stroke={col} strokeWidth="1.2" strokeLinecap="round" opacity="0.35"/>
+        {/* Shield */}
+        <path d="M46 50 Q46 44 52 42 Q58 44 58 50 Q58 56 52 59 Q46 56 46 50Z" stroke={col} strokeWidth="1.5" fill={`${col}15`}/>
+        <path d="M49 50 L51 52 L55 48" stroke={col} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    'Design': (
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        {/* Pen tool */}
+        <path d="M8 52 L20 28 L40 20 L44 24 L36 44 Z" stroke={col} strokeWidth="1.5" fill={`${col}10`} strokeLinejoin="round"/>
+        <line x1="20" y1="28" x2="36" y2="44" stroke={col} strokeWidth="1" opacity="0.4"/>
+        <circle cx="40" cy="20" r="5" stroke={col} strokeWidth="1.5" fill={`${col}20`}/>
+        <circle cx="40" cy="20" r="2" fill={col} opacity="0.7"/>
+        {/* Color palette circles */}
+        <circle cx="50" cy="38" r="5" stroke={col} strokeWidth="1.2" fill={`${col}20`}/>
+        <circle cx="58" cy="46" r="5" stroke={col} strokeWidth="1.2" fill={`${col}15`}/>
+        <circle cx="50" cy="54" r="5" stroke={col} strokeWidth="1.2" fill={`${col}25`}/>
+        <line x1="8" y1="52" x2="4" y2="58" stroke={col} strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    ),
+    'Backend': (
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        {/* Server stack */}
+        <rect x="8" y="10" width="48" height="12" rx="3" stroke={col} strokeWidth="1.5" fill={`${col}12`}/>
+        <rect x="8" y="26" width="48" height="12" rx="3" stroke={col} strokeWidth="1.5" fill={`${col}08`}/>
+        <rect x="8" y="42" width="48" height="12" rx="3" stroke={col} strokeWidth="1.5" fill={`${col}10`}/>
+        <circle cx="16" cy="16" r="2.5" fill={col} opacity="0.8"/>
+        <circle cx="16" cy="32" r="2.5" fill={col} opacity="0.5"/>
+        <circle cx="16" cy="48" r="2.5" fill={col} opacity="0.6"/>
+        <rect x="22" y="14" width="20" height="4" rx="1.5" fill={`${col}30`}/>
+        <rect x="22" y="30" width="14" height="4" rx="1.5" fill={`${col}22`}/>
+        <rect x="22" y="46" width="18" height="4" rx="1.5" fill={`${col}28`}/>
+        <circle cx="50" cy="16" r="3" fill="#4FFFB0" opacity="0.8"/>
+        <circle cx="50" cy="32" r="3" fill={col} opacity="0.5"/>
+        <circle cx="50" cy="48" r="3" fill="#4FFFB0" opacity="0.7"/>
+      </svg>
+    ),
+    'Marketing': (
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        {/* Megaphone */}
+        <path d="M8 24 L8 40 L20 40 L40 52 L40 12 L20 24 Z" stroke={col} strokeWidth="1.5" fill={`${col}12`} strokeLinejoin="round"/>
+        <line x1="8" y1="24" x2="8" y2="40" stroke={col} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M20 40 L22 52 L28 52 L26 40" stroke={col} strokeWidth="1.2" fill={`${col}15`}/>
+        {/* Sound waves */}
+        <path d="M44 20 Q50 26 50 32 Q50 38 44 44" stroke={col} strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.7"/>
+        <path d="M48 16 Q56 24 56 32 Q56 40 48 48" stroke={col} strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.4"/>
+        {/* Up arrow */}
+        <path d="M6 8 L10 4 L14 8" stroke={col} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+        <line x1="10" y1="4" x2="10" y2="14" stroke={col} strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+  };
+  const icon = icons[cat];
+  if (icon) return icon;
+  // Fallback: tech-style hex with emoji
+  return (
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+      <polygon points="32,4 58,18 58,46 32,60 6,46 6,18" stroke={col} strokeWidth="1.5" fill={`${col}10`}/>
+      <text x="32" y="40" textAnchor="middle" fontSize="22">{em}</text>
+    </svg>
+  );
+}
+
 // Cyberpunk blog card - terminal/data-log style, different from service cards
 function CyberBlogCard({ post, index, onClick }) {
   const [hov, setHov] = useState(false);
@@ -48,12 +146,9 @@ function CyberBlogCard({ post, index, onClick }) {
         {/* Grid lines */}
         <div style={{ position:'absolute', inset:0, backgroundImage:`linear-gradient(${post.col}08 1px,transparent 1px),linear-gradient(90deg,${post.col}08 1px,transparent 1px)`,
           backgroundSize:'20px 20px', pointerEvents:'none' }}/>
-        {/* Left - emoji in hex frame */}
-        <div style={{ position:'relative', zIndex:1 }}>
-          <svg width="64" height="72" viewBox="0 0 64 72" fill="none">
-            <polygon points="32,2 62,18 62,54 32,70 2,54 2,18" stroke={post.col} strokeWidth="1.5" fill={`${post.col}10`} opacity="0.8"/>
-            <text x="32" y="44" textAnchor="middle" fontSize="26">{post.em}</text>
-          </svg>
+        {/* Left - unique cyber icon per category */}
+        <div style={{ position:'relative', zIndex:1, width:72, height:72, display:'flex', alignItems:'center', justifyContent:'center' }}>
+          <BLOG_CAT_ICON cat={post.cat} col={post.col} em={post.em} />
         </div>
         {/* Right - data bars */}
         <div style={{ display:'flex', flexDirection:'column', gap:5, alignItems:'flex-end', position:'relative', zIndex:1 }}>
