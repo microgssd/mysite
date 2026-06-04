@@ -27,40 +27,153 @@ function PremiumTyper() {
   );
 }
 
-// Cyberpunk hero visual — data grid + floating nodes
+// Cyberpunk tech stack visual — real tech icons
+const TECH_ICONS = [
+  { name:'React', col:'#61DAFB',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="4.5" fill={c}/>
+        <ellipse cx="30" cy="30" rx="24" ry="9" stroke={c} strokeWidth="1.6" fill="none"/>
+        <ellipse cx="30" cy="30" rx="24" ry="9" stroke={c} strokeWidth="1.6" fill="none" transform="rotate(60 30 30)"/>
+        <ellipse cx="30" cy="30" rx="24" ry="9" stroke={c} strokeWidth="1.6" fill="none" transform="rotate(120 30 30)"/>
+      </svg>
+    )
+  },
+  { name:'Next.js', col:'#ffffff',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="22" stroke={c} strokeWidth="1.6" fill="none"/>
+        <path d="M22 40 L22 20 L38 38" stroke={c} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        <line x1="32" y1="20" x2="32" y2="32" stroke={c} strokeWidth="2.2" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  { name:'Node.js', col:'#68A063',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none">
+        <path d="M30 8 L50 19.5 L50 40.5 L30 52 L10 40.5 L10 19.5 Z" stroke={c} strokeWidth="1.6" fill="none"/>
+        <path d="M30 14 L44 22 L44 38 L30 46 L16 38 L16 22 Z" stroke={c} strokeWidth="1" strokeOpacity="0.4" fill="none"/>
+        <text x="30" y="34" textAnchor="middle" fill={c} fontSize="11" fontWeight="bold" fontFamily="monospace">JS</text>
+      </svg>
+    )
+  },
+  { name:'AWS', col:'#FF9900',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none">
+        <path d="M14 36 Q10 30 14 24 Q20 14 30 14 Q38 14 42 20" stroke={c} strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+        <path d="M44 22 Q52 26 50 34 Q48 42 40 44 L20 44 Q12 42 12 36" stroke={c} strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+        <path d="M20 50 L16 54 M20 50 L24 54" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M40 50 L36 54 M40 50 L44 54" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="20" y1="44" x2="20" y2="50" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="40" y1="44" x2="40" y2="50" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
+        <text x="30" y="34" textAnchor="middle" fill={c} fontSize="8" fontWeight="bold" fontFamily="monospace">AWS</text>
+      </svg>
+    )
+  },
+  { name:'MongoDB', col:'#47A248',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none">
+        <path d="M30 8 Q34 16 34 26 Q34 36 30 52 Q26 36 26 26 Q26 16 30 8Z" stroke={c} strokeWidth="1.6" fill={`${c}22`}/>
+        <path d="M30 52 Q26 44 24 36 Q30 40 30 52Z" fill={c} opacity="0.6"/>
+        <line x1="30" y1="38" x2="30" y2="52" stroke={c} strokeWidth="1.5"/>
+        <circle cx="30" cy="22" r="3" fill={c} opacity="0.8"/>
+      </svg>
+    )
+  },
+  { name:'PostgreSQL', col:'#336791',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none">
+        <ellipse cx="30" cy="18" rx="16" ry="7" stroke={c} strokeWidth="1.6" fill={`${c}15`}/>
+        <rect x="14" y="18" width="32" height="24" stroke={c} strokeWidth="1.6" fill={`${c}08`}/>
+        <ellipse cx="30" cy="42" rx="16" ry="7" stroke={c} strokeWidth="1.6" fill={`${c}15`}/>
+        <line x1="14" y1="26" x2="46" y2="26" stroke={c} strokeWidth="0.8" strokeOpacity="0.4"/>
+        <line x1="14" y1="34" x2="46" y2="34" stroke={c} strokeWidth="0.8" strokeOpacity="0.4"/>
+        <path d="M44 14 Q52 18 52 26 L44 26" stroke={c} strokeWidth="1.4" fill="none" strokeLinecap="round"/>
+      </svg>
+    )
+  },
+  { name:'Docker', col:'#2496ED',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none">
+        <rect x="8" y="28" width="8" height="8" rx="1" stroke={c} strokeWidth="1.4" fill={`${c}18`}/>
+        <rect x="18" y="28" width="8" height="8" rx="1" stroke={c} strokeWidth="1.4" fill={`${c}18`}/>
+        <rect x="28" y="28" width="8" height="8" rx="1" stroke={c} strokeWidth="1.4" fill={`${c}18`}/>
+        <rect x="18" y="18" width="8" height="8" rx="1" stroke={c} strokeWidth="1.4" fill={`${c}18`}/>
+        <rect x="28" y="18" width="8" height="8" rx="1" stroke={c} strokeWidth="1.4" fill={`${c}18`}/>
+        <rect x="28" y="8" width="8" height="8" rx="1" stroke={c} strokeWidth="1.4" fill={`${c}18`}/>
+        <path d="M8 36 Q14 48 30 48 Q46 48 50 36 Q54 28 46 26 Q44 20 38 22" stroke={c} strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+        <circle cx="46" cy="22" r="3" fill={c} opacity="0.7"/>
+        <line x1="42" y1="22" x2="34" y2="22" stroke={c} strokeWidth="1.2"/>
+      </svg>
+    )
+  },
+  { name:'Kubernetes', col:'#326CE5',
+    svg: (c) => (
+      <svg viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="18" stroke={c} strokeWidth="1.6" fill={`${c}08`}/>
+        <circle cx="30" cy="30" r="5" stroke={c} strokeWidth="1.4" fill={`${c}20`}/>
+        {[0,45,90,135,180,225,270,315].map((deg,i) => {
+          const rad = deg * Math.PI / 180;
+          const x1 = 30 + 7 * Math.cos(rad);
+          const y1 = 30 + 7 * Math.sin(rad);
+          const x2 = 30 + 16 * Math.cos(rad);
+          const y2 = 30 + 16 * Math.sin(rad);
+          const cx2 = 30 + 19 * Math.cos(rad);
+          const cy2 = 30 + 19 * Math.sin(rad);
+          return (
+            <g key={i}>
+              <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={c} strokeWidth="1.2" opacity="0.7"/>
+              <circle cx={cx2} cy={cy2} r="2.5" fill={c} opacity={i%2===0?0.9:0.5}/>
+            </g>
+          );
+        })}
+      </svg>
+    )
+  },
+];
+
 function CyberHeroVisual() {
   return (
-    <div style={{ position:'relative', width:'100%', marginTop:'clamp(16px,4vw,44px)', height:'clamp(80px,15vw,120px)', overflow:'visible' }}>
-      {/* Horizontal data lines */}
-      {[0,1,2,3].map(i => (
-        <motion.div key={i} style={{ position:'absolute', left:0, right:0, height:1, top:`${20+i*22}%`,
-          background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.3),rgba(0,201,255,0.12),transparent)' }}
-          animate={{ opacity:[0.3,0.8,0.3] }} transition={{ duration:2+i*0.4, repeat:Infinity, delay:i*0.3 }} />
-      ))}
-      {/* Floating service nodes — 2 rows on mobile via CSS grid equivalent */}
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(8,1fr)', gap:6, alignItems:'center', height:'clamp(60px,12vw,90px)' }}>
-        {SERVICES.map((s,i) => (
-          <motion.div key={s.id}
-            style={{ width:'100%', aspectRatio:'1', maxWidth:56, margin:'0 auto',
-              borderRadius:8, border:`1px solid ${s.col}66`, background:`${s.col}0d`,
-              display:'flex', alignItems:'center', justifyContent:'center',
-              fontFamily:'Orbitron,monospace', fontSize:'clamp(6px,1.2vw,9px)', color:s.col, fontWeight:800,
-              boxShadow:`0 0 10px ${s.col}22`, letterSpacing:0.5,
-            }}
-            animate={{ y:[0,-6,0], opacity:[0.6,1,0.6] }}
-            transition={{ duration:2+i*0.22, repeat:Infinity, ease:'easeInOut', delay:i*0.12 }}
-          >
-            {s.id.split('-').map(w=>w[0].toUpperCase()).join('')}
+    <div style={{ width:'100%', marginTop:'clamp(14px,3vw,36px)', padding:'0 0 8px' }}>
+      {/* Section label */}
+      <div style={{ textAlign:'center', marginBottom:12 }}>
+        <span style={{ fontFamily:'Orbitron,monospace', fontSize:9, color:'rgba(0,201,255,0.5)', letterSpacing:2, textTransform:'uppercase' }}>
+          TECH STACK
+        </span>
+      </div>
+      {/* Icons grid — wraps to 2 rows on mobile */}
+      <div className='tech-stack-grid' style={{ display:'grid', gridTemplateColumns:'repeat(8,1fr)', gap:'clamp(6px,1.5vw,14px)', maxWidth:760, margin:'0 auto', padding:'0 8px' }}>
+        {TECH_ICONS.map((tech, i) => (
+          <motion.div key={tech.name}
+            initial={{ opacity:0, y:20 }}
+            animate={{ opacity:1, y:0 }}
+            transition={{ delay:0.1+i*0.07, type:'spring', stiffness:200 }}
+            style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:5 }}>
+            <motion.div
+              animate={{ y:[0,-5,0], filter:[`drop-shadow(0 2px 6px ${tech.col}55)`,`drop-shadow(0 0 14px ${tech.col}99)`,`drop-shadow(0 2px 6px ${tech.col}55)`] }}
+              transition={{ duration:2.5+i*0.2, repeat:Infinity, ease:'easeInOut', delay:i*0.18 }}
+              whileHover={{ scale:1.2 }}
+              style={{ width:'clamp(32px,5vw,52px)', height:'clamp(32px,5vw,52px)',
+                background:`${tech.col}0d`, border:`1px solid ${tech.col}44`,
+                borderRadius:10, padding:'clamp(5px,1vw,8px)',
+                display:'flex', alignItems:'center', justifyContent:'center', cursor:'default' }}>
+              {tech.svg(tech.col)}
+            </motion.div>
+            <span style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(5px,0.9vw,8px)',
+              color:`${tech.col}88`, letterSpacing:0.5, textAlign:'center',
+              display:'block', lineHeight:1.2 }}>
+              {tech.name}
+            </span>
           </motion.div>
         ))}
       </div>
       {/* Bottom scan bar */}
-      <div style={{ position:'absolute', bottom:0, left:0, right:0, height:2,
-        background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.6),rgba(79,255,176,0.4),transparent)' }}>
-        <motion.div style={{ position:'absolute', inset:0,
-          background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.9),transparent)',
-          width:'30%' }}
-          animate={{ x:['-30%','120%'] }} transition={{ duration:3, repeat:Infinity, ease:'linear' }} />
+      <div style={{ height:2, marginTop:14,
+        background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.5),rgba(79,255,176,0.3),transparent)',
+        position:'relative', overflow:'hidden', borderRadius:1 }}>
+        <motion.div style={{ position:'absolute', inset:0, width:'25%',
+          background:'linear-gradient(90deg,transparent,rgba(0,201,255,1),transparent)' }}
+          animate={{ x:['-25%','125%'] }} transition={{ duration:2.5, repeat:Infinity, ease:'linear' }}/>
       </div>
     </div>
   );
