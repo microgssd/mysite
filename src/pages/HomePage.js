@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SERVICES, PORTFOLIO, REVIEWS_1, REVIEWS_2 } from '../data/index.js';
 import { AquronLogoCanvas, Reveal, Marquee, CyberServiceCard, SectionHeader, PortfolioCard } from '../components/index.js';
@@ -177,6 +177,84 @@ function CyberHeroVisual() {
 }
 
 
+// Cyberpunk counting stats
+function useCountUp(target, duration, inView) {
+  const [val, setVal] = useState(0);
+  const rafRef = useRef(null);
+  const started = useRef(false);
+  useEffect(() => {
+    if (!inView || started.current) return;
+    started.current = true;
+    const numTarget = parseFloat(target.replace(/[^0-9.]/g, ''));
+    const suffix = target.replace(/[0-9.]/g, '');
+    const start = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - start) / (duration * 1000), 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * numTarget);
+      setVal(current + suffix);
+      if (progress < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [inView, target, duration]);
+  return inView && started.current ? val : '0' + target.replace(/[0-9.]/g, '');
+}
+
+function StatBox({ n, l, col, icon, delay }) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+  const counted = useCountUp(n, 1.8, inView);
+  return (
+    <motion.div ref={ref} initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay, duration:0.5 }}
+      style={{ textAlign:'center', position:'relative', padding:'18px 10px' }}>
+      {/* Cyber frame with proper corners */}
+      <div style={{ position:'absolute', inset:0, borderRadius:8, border:`1px solid ${col}28`, background:`${col}04` }}/>
+      {/* Corner brackets - each individually positioned to prevent mobile clipping */}
+      <div style={{ position:'absolute', top:5, left:5, width:10, height:10, borderTop:`2px solid ${col}99`, borderLeft:`2px solid ${col}99`, borderRadius:'3px 0 0 0' }}/>
+      <div style={{ position:'absolute', top:5, right:5, width:10, height:10, borderTop:`2px solid ${col}99`, borderRight:`2px solid ${col}99`, borderRadius:'0 3px 0 0' }}/>
+      <div style={{ position:'absolute', bottom:5, left:5, width:10, height:10, borderBottom:`2px solid ${col}99`, borderLeft:`2px solid ${col}99`, borderRadius:'0 0 0 3px' }}/>
+      <div style={{ position:'absolute', bottom:5, right:5, width:10, height:10, borderBottom:`2px solid ${col}99`, borderRight:`2px solid ${col}99`, borderRadius:'0 0 3px 0' }}/>
+      <div style={{ position:'relative', zIndex:1 }}>
+        <div style={{ fontFamily:'monospace', fontSize:16, color:col, opacity:0.55, marginBottom:6, lineHeight:1 }}>{icon}</div>
+        <motion.div style={{ position:'relative', display:'inline-block' }}
+          animate={{ scale:[1,1.03,1] }} transition={{ duration:3, repeat:Infinity, delay }}>
+          <span style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(20px,4vw,40px)', fontWeight:900, color:col,
+            textShadow:`0 0 20px ${col}88, 0 0 40px ${col}44`, letterSpacing:'-0.5px' }}>
+            {counted}
+          </span>
+          {/* Glitch effect */}
+          <motion.span aria-hidden style={{ position:'absolute', left:2, top:0, fontFamily:'Orbitron,monospace', fontSize:'clamp(20px,4vw,40px)', fontWeight:900, color:col, opacity:0, letterSpacing:'-0.5px', pointerEvents:'none' }}
+            animate={{ opacity:[0,0.25,0], x:[0,3,0] }} transition={{ duration:4, repeat:Infinity, delay:delay+1.5 }}>
+            {counted}
+          </motion.span>
+        </motion.div>
+        <div style={{ color:'rgba(200,220,255,0.4)', fontSize:11, fontWeight:600, fontFamily:'Rajdhani,sans-serif', letterSpacing:1.5, textTransform:'uppercase', marginTop:5 }}>{l}</div>
+      </div>
+    </motion.div>
+  );
+}
+
+function CyberStatsSection() {
+  return (
+    <div style={{ padding:'clamp(20px,4vw,36px) clamp(16px,5vw,32px)', background:'rgba(0,5,20,0.7)', borderTop:'1px solid rgba(0,201,255,0.12)', borderBottom:'1px solid rgba(0,201,255,0.12)', position:'relative', overflow:'hidden' }}>
+      <motion.div style={{ position:'absolute', left:0, right:0, height:1, background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.3),transparent)' }} animate={{ top:['0%','100%'] }} transition={{ duration:3, repeat:Infinity, ease:'linear' }}/>
+      <div style={{ maxWidth:900, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'clamp(8px,2vw,20px)' }}>
+        <StatBox n="150+" l="Projects"    col="#00C9FF" icon="◈" delay={0}    />
+        <StatBox n="98%"  l="Satisfaction" col="#4FFFB0" icon="◎" delay={0.1} />
+        <StatBox n="5+"   l="Years"        col="#FFD700" icon="◆" delay={0.2} />
+        <StatBox n="30+"  l="Countries"    col="#FC5C7D" icon="◉" delay={0.3} />
+      </div>
+    </div>
+  );
+}
+
+
 export default function HomePage({ go }) {
   const [selectedModal, setSelectedModal] = useState(null);
 
@@ -184,7 +262,7 @@ export default function HomePage({ go }) {
     <div style={{ paddingTop:72, overflowX:'hidden' }}>
 
       {/* HERO */}
-      <section style={{ minHeight:'100vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'clamp(72px,8vw,110px) clamp(16px,5vw,32px) clamp(30px,5vw,60px)', position:'relative', overflow:'hidden' }}>
+      <section style={{ minHeight:'100vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'clamp(68px,6vw,100px) clamp(16px,5vw,32px) clamp(28px,4vw,56px)', position:'relative', overflow:'hidden' }}>
         <div style={{ position:'absolute', width:'min(600px,80vw)', height:'min(600px,80vw)', borderRadius:'50%', background:'radial-gradient(circle,rgba(0,201,255,0.12) 0%,transparent 70%)', top:'-5%', left:'3%', pointerEvents:'none', animation:'aurora1 14s ease-in-out infinite' }}/>
         <div style={{ position:'absolute', width:'min(400px,60vw)', height:'min(400px,60vw)', borderRadius:'50%', background:'radial-gradient(circle,rgba(79,255,176,0.07) 0%,transparent 70%)', bottom:'5%', right:'5%', pointerEvents:'none', animation:'aurora2 18s ease-in-out infinite' }}/>
         {/* Cyber grid overlay */}
@@ -194,7 +272,7 @@ export default function HomePage({ go }) {
         ))}
 
         <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:.8, ease:[.16,1,.3,1] }} style={{ position:'relative', zIndex:1, maxWidth:860, width:'100%' }}>
-          <motion.div style={{ display:'flex', justifyContent:'center', marginBottom:'clamp(10px,2vw,22px)' }}
+          <motion.div style={{ display:'flex', justifyContent:'center', marginBottom:'clamp(8px,2vw,20px)' }}
             animate={{ filter:['drop-shadow(0 0 14px rgba(0,201,255,0.5))','drop-shadow(0 0 34px rgba(79,255,176,0.9))','drop-shadow(0 0 14px rgba(0,201,255,0.5))'] }} transition={{ duration:3.2, repeat:Infinity }}>
             <AquronLogoCanvas size={96} />
           </motion.div>
@@ -228,46 +306,8 @@ export default function HomePage({ go }) {
         </motion.div>
       </section>
 
-      {/* STATS — cyberpunk style */}
-      <div style={{ padding:'clamp(22px,4vw,38px) clamp(16px,5vw,32px)', background:'rgba(0,5,20,0.7)', borderTop:'1px solid rgba(0,201,255,0.12)', borderBottom:'1px solid rgba(0,201,255,0.12)', position:'relative', overflow:'hidden' }}>
-        {/* Scan line */}
-        <motion.div style={{ position:'absolute', left:0, right:0, height:1, background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.3),transparent)' }} animate={{ top:['0%','100%'] }} transition={{ duration:3, repeat:Infinity, ease:'linear' }}/>
-        <div style={{ maxWidth:900, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:16 }}>
-          {[
-            {n:'150+', l:'Projects', col:'#00C9FF', icon:'◈'},
-            {n:'98%',  l:'Satisfaction', col:'#4FFFB0', icon:'◎'},
-            {n:'5+',   l:'Years', col:'#FFD700', icon:'◆'},
-            {n:'30+',  l:'Countries', col:'#FC5C7D', icon:'◉'},
-          ].map((s,i) => (
-            <Reveal key={i} delay={i*.08}>
-              <div style={{ textAlign:'center', position:'relative', padding:'14px 8px' }}>
-                {/* Cyber frame */}
-                <div style={{ position:'absolute', inset:0, borderRadius:8, border:`1px solid ${s.col}22`, background:`${s.col}05` }}/>
-                {/* Corner brackets */}
-                <div style={{ position:'absolute', top:4, left:4, width:8, height:8, borderTop:`1.5px solid ${s.col}77`, borderLeft:`1.5px solid ${s.col}77` }}/>
-                <div style={{ position:'absolute', top:4, right:4, width:8, height:8, borderTop:`1.5px solid ${s.col}77`, borderRight:`1.5px solid ${s.col}77` }}/>
-                <div style={{ position:'absolute', bottom:4, left:4, width:8, height:8, borderBottom:`1.5px solid ${s.col}77`, borderLeft:`1.5px solid ${s.col}77` }}/>
-                <div style={{ position:'absolute', bottom:4, right:4, width:8, height:8, borderBottom:`1.5px solid ${s.col}77`, borderRight:`1.5px solid ${s.col}77` }}/>
-                {/* Icon */}
-                <div style={{ fontFamily:'monospace', fontSize:14, color:s.col, opacity:0.6, marginBottom:4 }}>{s.icon}</div>
-                {/* Number with glitch */}
-                <motion.div style={{ position:'relative' }} animate={{ scale:[1,1.03,1] }} transition={{ duration:3, repeat:Infinity, delay:i*.5 }}>
-                  <span style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(22px,4vw,44px)', fontWeight:900, color:s.col, letterSpacing:'-0.5px',
-                    textShadow:`0 0 20px ${s.col}88, 0 0 40px ${s.col}44` }}>
-                    {s.n}
-                  </span>
-                  {/* Glitch copy */}
-                  <motion.span style={{ position:'absolute', left:2, top:0, fontFamily:'Orbitron,monospace', fontSize:'clamp(22px,4vw,44px)', fontWeight:900, color:s.col, opacity:0, letterSpacing:'-0.5px' }}
-                    animate={{ opacity:[0,0.3,0], x:[0,3,0] }} transition={{ duration:4, repeat:Infinity, delay:i*1.2 }}>
-                    {s.n}
-                  </motion.span>
-                </motion.div>
-                <div style={{ color:'rgba(255,255,255,0.35)', fontSize:11, fontWeight:600, fontFamily:'Rajdhani,sans-serif', letterSpacing:1.5, textTransform:'uppercase', marginTop:4 }}>{s.l}</div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
+      {/* STATS — cyberpunk glitch counters */}
+      <CyberStatsSection />
 
       {/* CYBER SERVICE CARDS */}
       <section className="section-pad">
