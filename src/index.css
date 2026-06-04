@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
@@ -420,3 +422,31 @@ footer {
 html, body { overflow-x: hidden !important; }
 canvas, svg, img { max-width: 100% !important; }
 .ham-btn { display: none; }
+
+/* ── Global dropdown fix — always dark ── */
+select {
+  background: rgba(0,10,30,0.97) !important;
+  color: #e0f0ff !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+select option {
+  background: #000a1e !important;
+  color: #e0f0ff !important;
+}
+select:focus {
+  border-color: #00C9FF !important;
+  outline: none !important;
+}
+
+@keyframes aurora1 { 0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,10px) scale(0.98)} }
+@keyframes aurora2 { 0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-25px,15px) scale(1.03)}66%{transform:translate(15px,-25px) scale(0.97)} }
+@keyframes aurora3 { 0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-10px)} }
+@keyframes floatB  { 0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-20px)} }
+@keyframes pulse   { 0%,100%{opacity:0.6}50%{opacity:1} }
+@keyframes gshift  { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
+@keyframes goldShine { 0%{left:-100%}100%{left:200%} }
+@keyframes spin    { to{transform:rotate(360deg)} }
+@keyframes spinr   { to{transform:rotate(-360deg)} }
+@keyframes cursorSpin  { to{transform:rotate(360deg)} }
+@keyframes cursorSpinR { to{transform:rotate(-360deg)} }
