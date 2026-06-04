@@ -249,74 +249,106 @@ function useGeoTime() {
 export function Footer({ go }) {
   const geo = useGeoTime();
   const year = new Date().getFullYear();
-  const links = [['Web Development','services'],['Mobile Apps','services'],['E-Commerce','services'],['Digital Marketing','services'],['Payment Integration','services'],['Blog Platforms','services']];
+  const links = [['Web Development','services'],['Mobile Apps','services'],['E-Commerce','services'],['AI & Machine Learning','services'],['Payment Integration','services'],['Telegram Bots','services']];
   const company = [['About Us','about'],['Portfolio','portfolio'],['Pricing','pricing'],['Blog','blog'],['Contact','contact']];
   const socials = [
-    { icon:'𝕏', col:'#1DA1F2', label:'Twitter',   href:'#' },
-    { icon:'in', col:'#0A66C2', label:'LinkedIn',  href:'#' },
-    { icon:'⌥',  col:'#fff',    label:'GitHub',    href:'#' },
-    { icon:'◈',  col:'#E1306C', label:'Instagram', href:'#' },
+    { icon:'𝕏', col:'#1DA1F2', label:'Twitter', href:'#' },
+    { icon:'in', col:'#0A66C2', label:'LinkedIn', href:'#' },
+    { icon:'gh', col:'#fff', label:'GitHub', href:'#' },
+    { icon:'ig', col:'#E1306C', label:'Instagram', href:'#' },
   ];
-
   return (
-    <footer style={{ position:'relative', zIndex:2 }}>
-      <div style={{ position:'absolute', bottom:-100, left:'50%', transform:'translateX(-50%)', width:600, height:300, background:'radial-gradient(ellipse, rgba(0,201,255,0.07) 0%, transparent 70%)', pointerEvents:'none', animation:'floatB 8s ease-in-out infinite' }} />
-      <div className="wrap" style={{ position:'relative', zIndex:1 }}>
-        <div className="footer-grid" style={{ display:'grid', gridTemplateColumns:'1.4fr 1fr 1fr 1.1fr', gap:32, marginBottom:44 }}>
+    <footer style={{ position:'relative', zIndex:2, background:'rgba(0,3,12,0.95)', borderTop:'1px solid rgba(0,201,255,0.12)' }}>
+      {/* Top scan line */}
+      <div style={{ position:'absolute', top:0, left:0, right:0, height:1, background:'linear-gradient(90deg,transparent,rgba(0,201,255,0.5),rgba(79,255,176,0.3),transparent)' }}/>
+      <div style={{ position:'absolute', bottom:-100, left:'50%', transform:'translateX(-50%)', width:600, height:300, background:'radial-gradient(ellipse,rgba(0,201,255,0.06) 0%,transparent 70%)', pointerEvents:'none', animation:'floatB 8s ease-in-out infinite' }}/>
+      <div className="wrap" style={{ position:'relative', zIndex:1, paddingTop:44, paddingBottom:28 }}>
+        <div className="footer-grid" style={{ display:'grid', gridTemplateColumns:'1.5fr 1fr 1fr 1fr', gap:32, marginBottom:36 }}>
+          {/* Brand col */}
           <div>
             <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:14, cursor:'pointer' }} onClick={() => go('home')}>
-              <AquronLogoCanvas size={32} />
+              <AquronLogoCanvas size={36} />
               <div>
-                <div style={{ fontFamily:'Sora,sans-serif', fontSize:16, fontWeight:800, background:'linear-gradient(135deg,#00C9FF,#4FFFB0)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>Aquron</div>
-                <div style={{ color:'rgba(0, 201, 255, 0.4)', fontSize:7.5, fontWeight:700, letterSpacing:'1.5px', textTransform:'uppercase' }}>Fluid Digital Solutions</div>
+                <div style={{ fontFamily:'Orbitron,monospace', fontSize:16, fontWeight:900, background:'linear-gradient(135deg,#00C9FF,#4FFFB0)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', letterSpacing:1 }}>AQURON</div>
+                <div style={{ color:'rgba(0,201,255,0.4)', fontSize:8, fontWeight:700, letterSpacing:'2px', textTransform:'uppercase', fontFamily:'Rajdhani,sans-serif' }}>Fluid Digital Solutions</div>
               </div>
             </div>
-            <p style={{ color:'rgba(255,255,255,0.38)', fontSize:13.5, lineHeight:1.82, marginBottom:20 }}>Crafting fluid digital experiences that flow seamlessly and deliver measurable results for bold brands worldwide.</p>
-            {/* Geo time widget */}
+            <p style={{ color:'rgba(148,200,240,0.45)', fontSize:13, lineHeight:1.8, marginBottom:18, fontFamily:'Rajdhani,sans-serif' }}>
+              Crafting fluid digital experiences that deliver measurable results for bold brands worldwide.
+            </p>
             {geo.time && (
-              <motion.div style={{ display:'inline-flex', alignItems:'center', gap:7, background:'rgba(0, 201, 255, 0.06)', border:'1px solid rgba(0, 201, 255, 0.18)', borderRadius:10, padding:'6px 12px', marginBottom:16 }}
+              <motion.div style={{ display:'inline-flex', alignItems:'center', gap:7, background:'rgba(0,201,255,0.06)', border:'1px solid rgba(0,201,255,0.18)', borderRadius:6, padding:'6px 12px', marginBottom:16 }}
                 initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.5 }}>
-                <span style={{ fontSize:12 }}>📍</span>
-                <div>
-                  <span style={{ color:'#00C9FF', fontSize:12.5, fontWeight:700, fontFamily:'Sora,sans-serif' }}>{geo.time}</span>
-                  {geo.city && <span style={{ color:'rgba(255,255,255,0.4)', fontSize:11, marginLeft:5 }}>in {geo.city}</span>}
-                </div>
+                <span style={{ fontFamily:'monospace', fontSize:10, color:'rgba(0,201,255,0.6)' }}>◎</span>
+                <span style={{ color:'#00C9FF', fontSize:12, fontWeight:700, fontFamily:'Orbitron,monospace' }}>{geo.time}</span>
+                {geo.city && <span style={{ color:'rgba(255,255,255,0.35)', fontSize:11, fontFamily:'Rajdhani,sans-serif' }}>/ {geo.city}</span>}
               </motion.div>
             )}
-            <div style={{ display:'flex', gap:9 }}>
-              {socials.map((s, i) => (
-                <motion.a key={i} href={s.href} title={s.label} style={{ width:36, height:36, borderRadius:9, background:'rgba(255,255,255,0.04)', display:'flex', alignItems:'center', justifyContent:'center', color:'rgba(255,255,255,0.6)', fontSize:13, fontWeight:800, border:'1px solid rgba(255,255,255,0.07)', cursor:'pointer', textDecoration:'none' }}
-                  whileHover={{ y:-4, scale:1.1 }}>
-                  {s.icon}
-                </motion.a>
+            <div style={{ display:'flex', gap:7 }}>
+              {socials.map((s,i) => (
+                <motion.a key={i} href={s.href} title={s.label}
+                  style={{ width:34, height:34, borderRadius:6, background:'rgba(0,201,255,0.05)', display:'flex', alignItems:'center', justifyContent:'center', color:'rgba(160,210,255,0.5)', fontSize:11, fontWeight:800, border:'1px solid rgba(0,201,255,0.12)', cursor:'pointer', textDecoration:'none', fontFamily:'Orbitron,monospace', letterSpacing:0.5 }}
+                  whileHover={{ y:-3, scale:1.1 }}>{s.icon}</motion.a>
               ))}
             </div>
           </div>
+
+          {/* Services col */}
           <div>
-            <p style={{ fontFamily:'Sora,sans-serif', color:'#fff', fontWeight:700, marginBottom:14, fontSize:12.5, textTransform:'uppercase', letterSpacing:'1px' }}>Services</p>
+            <p style={{ fontFamily:'Orbitron,monospace', color:'#00C9FF', fontWeight:700, marginBottom:16, fontSize:10, textTransform:'uppercase', letterSpacing:'2px', display:'flex', alignItems:'center', gap:6 }}>
+              <span style={{ color:'rgba(0,201,255,0.4)' }}>{'>'}</span> Services
+            </p>
             {links.map(([l,p]) => (
-              <motion.p key={l} onClick={() => go(p)} style={{ color:'rgba(255,255,255,0.38)', fontSize:13.5, marginBottom:8, cursor:'pointer' }} whileHover={{ x:5 }}>{l}</motion.p>
+              <motion.p key={l} onClick={() => go(p)}
+                style={{ color:'rgba(148,200,240,0.45)', fontSize:13, marginBottom:9, cursor:'pointer', fontFamily:'Rajdhani,sans-serif', fontWeight:500, display:'flex', alignItems:'center', gap:5 }}
+                whileHover={{ x:5, color:'rgba(0,201,255,0.8)' }}>
+                <span style={{ width:4, height:4, borderRadius:'50%', background:'rgba(0,201,255,0.3)', display:'inline-block', flexShrink:0 }}/>
+                {l}
+              </motion.p>
             ))}
           </div>
+
+          {/* Company col */}
           <div>
-            <p style={{ fontFamily:'Sora,sans-serif', color:'#fff', fontWeight:700, marginBottom:14, fontSize:12.5, textTransform:'uppercase', letterSpacing:'1px' }}>Company</p>
+            <p style={{ fontFamily:'Orbitron,monospace', color:'#4FFFB0', fontWeight:700, marginBottom:16, fontSize:10, textTransform:'uppercase', letterSpacing:'2px', display:'flex', alignItems:'center', gap:6 }}>
+              <span style={{ color:'rgba(79,255,176,0.4)' }}>{'>'}</span> Company
+            </p>
             {company.map(([l,p]) => (
-              <motion.p key={l} onClick={() => go(p)} style={{ color:'rgba(255,255,255,0.38)', fontSize:13.5, marginBottom:8, cursor:'pointer' }} whileHover={{ x:5 }}>{l}</motion.p>
+              <motion.p key={l} onClick={() => go(p)}
+                style={{ color:'rgba(148,200,240,0.45)', fontSize:13, marginBottom:9, cursor:'pointer', fontFamily:'Rajdhani,sans-serif', fontWeight:500, display:'flex', alignItems:'center', gap:5 }}
+                whileHover={{ x:5, color:'rgba(79,255,176,0.8)' }}>
+                <span style={{ width:4, height:4, borderRadius:'50%', background:'rgba(79,255,176,0.3)', display:'inline-block', flexShrink:0 }}/>
+                {l}
+              </motion.p>
             ))}
           </div>
+
+          {/* Contact col */}
           <div>
-            <p style={{ fontFamily:'Sora,sans-serif', color:'#fff', fontWeight:700, marginBottom:14, fontSize:12.5, textTransform:'uppercase', letterSpacing:'1px' }}>Contact</p>
-            <p style={{ color:'rgba(255,255,255,0.38)', fontSize:13.5, marginBottom:8 }}>✉️ work2sayan@gmail.com</p>
-            <p style={{ color:'rgba(255,255,255,0.38)', fontSize:13.5, marginBottom:8 }}>📍 Kolkata, India</p>
-            <p style={{ color:'rgba(255,255,255,0.38)', fontSize:13.5 }}>🌐 Mon-Sat 9AM-8PM IST</p>
+            <p style={{ fontFamily:'Orbitron,monospace', color:'#FFD700', fontWeight:700, marginBottom:16, fontSize:10, textTransform:'uppercase', letterSpacing:'2px', display:'flex', alignItems:'center', gap:6 }}>
+              <span style={{ color:'rgba(255,215,0,0.4)' }}>{'>'}</span> Contact
+            </p>
+            {[
+              { icon:'◈', label:'work2sayan@gmail.com' },
+              { icon:'◎', label:'Kolkata, India' },
+              { icon:'◆', label:'Mon-Sat 9AM-8PM IST' },
+            ].map((item,i) => (
+              <div key={i} style={{ display:'flex', gap:8, alignItems:'flex-start', marginBottom:10 }}>
+                <span style={{ fontFamily:'monospace', color:'rgba(255,215,0,0.5)', fontSize:12, flexShrink:0 }}>{item.icon}</span>
+                <span style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(148,200,240,0.45)', fontSize:13, lineHeight:1.4 }}>{item.label}</span>
+              </div>
+            ))}
           </div>
         </div>
-        <div style={{ borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:20, display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:8 }}>
-          {/* Auto-updating year via JS */}
-          <p style={{ color:'rgba(255,255,255,0.22)', fontSize:12.5 }}>
-            &copy; {year} Aquron Digital Agency. All rights reserved. Kolkata, India.
+
+        {/* Bottom bar */}
+        <div style={{ borderTop:'1px solid rgba(0,201,255,0.08)', paddingTop:18, display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:8 }}>
+          <p style={{ color:'rgba(148,200,240,0.25)', fontSize:11, fontFamily:'Orbitron,monospace', letterSpacing:1 }}>
+            &copy; {year} AQURON DIGITAL AGENCY
           </p>
-          <p style={{ color:'rgba(255,255,255,0.22)', fontSize:12.5 }}>Built with precision &middot; Delivered with care</p>
+          <p style={{ color:'rgba(148,200,240,0.2)', fontSize:11, fontFamily:'monospace', letterSpacing:0.5 }}>
+            BUILT_WITH_PRECISION &middot; DELIVERED_WITH_CARE
+          </p>
         </div>
       </div>
     </footer>
@@ -324,7 +356,6 @@ export function Footer({ go }) {
 }
 
 
-// ─── ANIMATED PROCESS STEPS ───────────────────────────────────
 export function AnimProcess({ steps, col }) {
   const [active, setActive] = useState(0);
 
