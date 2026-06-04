@@ -61,7 +61,7 @@ export default function ContactPage({ go }) {
       <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:.45 }} style={{ color:'rgba(255,255,255,0.52)', fontSize:15, marginBottom:8 }}>
         We'll reply to <strong style={{ color:'#00C9FF' }}>{form.email}</strong> within 24 hours.
       </motion.p>
-      <p style={{ color:'rgba(255,255,255,0.3)', fontSize:12, marginBottom:28, fontFamily:'monospace' }}>forwarded to work2sayan@gmail.com</p>
+  
       <motion.button className="btn-gold" onClick={() => setSent(false)} whileHover={{ scale:1.05 }}>SEND ANOTHER</motion.button>
     </div>
   );
@@ -99,7 +99,7 @@ export default function ContactPage({ go }) {
                 <div style={{ marginTop:24, padding:'16px', background:'rgba(0,201,255,0.04)', border:'1px solid rgba(0,201,255,0.12)', borderRadius:8 }}>
                   <p style={{ fontFamily:'monospace', fontSize:11, color:'rgba(0,201,255,0.5)', lineHeight:1.8 }}>
                     <span style={{ color:'rgba(0,201,255,0.3)' }}>{'> '}</span>status: <span style={{ color:'#4FFFB0' }}>ONLINE</span><br/>
-                    <span style={{ color:'rgba(0,201,255,0.3)' }}>{'> '}</span>queue: <span style={{ color:'#FFD700' }}>0 active projects</span><br/>
+                    <span style={{ color:'rgba(0,201,255,0.3)' }}>{'> '}</span>queue: <span style={{ color:'#FFD700' }}>4 active projects</span><br/>
                     <span style={{ color:'rgba(0,201,255,0.3)' }}>{'> '}</span>response: <span style={{ color:'#00C9FF' }}>{'< 24h'}</span>
                   </p>
                 </div>
@@ -174,9 +174,7 @@ export default function ContactPage({ go }) {
                   whileHover={{ scale:loading?1:1.02 }} whileTap={{ scale:0.98 }}>
                   {loading ? 'TRANSMITTING...' : 'SEND MESSAGE →'}
                 </motion.button>
-                <p style={{ color:'rgba(255,255,255,0.2)', fontSize:11, textAlign:'center', marginTop:10, fontFamily:'monospace' }}>
-                  encrypted · forwarded to work2sayan@gmail.com
-                </p>
+
               </div>
             </Reveal>
           </div>
