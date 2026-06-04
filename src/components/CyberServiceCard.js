@@ -285,11 +285,107 @@ const ICONS = {
       <text x="68" y="85" fill={col} fontSize="7" textAnchor="middle" fontFamily="monospace">1.2K ♥</text>
     </svg>
   ),
+  'ml-ai': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      {/* Brain outline */}
+      <path d="M45 15 Q55 12 62 18 Q72 18 74 28 Q80 32 78 42 Q82 50 76 56 Q74 66 64 68 Q58 76 48 74 Q42 78 36 74 Q26 74 22 66 Q14 62 14 52 Q8 46 12 36 Q12 26 22 22 Q26 14 36 14 Q40 12 45 15Z" stroke={col} strokeWidth="1.6" fill={`${col}08`}/>
+      {/* Neural nodes */}
+      <circle cx="30" cy="35" r="4" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      <circle cx="45" cy="28" r="4" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      <circle cx="60" cy="35" r="4" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      <circle cx="25" cy="52" r="4" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      <circle cx="45" cy="45" r="5" fill={col} stroke={col} strokeWidth="1.2"/>
+      <circle cx="65" cy="52" r="4" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      <circle cx="35" cy="62" r="3.5" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      <circle cx="55" cy="62" r="3.5" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      {/* Connections */}
+      <line x1="30" y1="35" x2="45" y2="28" stroke={col} strokeWidth="0.9" opacity="0.5"/>
+      <line x1="45" y1="28" x2="60" y2="35" stroke={col} strokeWidth="0.9" opacity="0.5"/>
+      <line x1="30" y1="35" x2="45" y2="45" stroke={col} strokeWidth="0.9" opacity="0.7"/>
+      <line x1="45" y1="28" x2="45" y2="45" stroke={col} strokeWidth="0.9" opacity="0.6"/>
+      <line x1="60" y1="35" x2="45" y2="45" stroke={col} strokeWidth="0.9" opacity="0.7"/>
+      <line x1="25" y1="52" x2="45" y2="45" stroke={col} strokeWidth="0.9" opacity="0.6"/>
+      <line x1="65" y1="52" x2="45" y2="45" stroke={col} strokeWidth="0.9" opacity="0.6"/>
+      <line x1="35" y1="62" x2="25" y2="52" stroke={col} strokeWidth="0.9" opacity="0.4"/>
+      <line x1="35" y1="62" x2="45" y2="45" stroke={col} strokeWidth="0.9" opacity="0.4"/>
+      <line x1="55" y1="62" x2="65" y2="52" stroke={col} strokeWidth="0.9" opacity="0.4"/>
+      <line x1="55" y1="62" x2="45" y2="45" stroke={col} strokeWidth="0.9" opacity="0.4"/>
+      {/* Pulse on center */}
+      <circle cx="45" cy="45" r="8" stroke={col} strokeWidth="1" fill="none" opacity="0.4">
+        <animate attributeName="r" values="5;12;5" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  ),
+  'saas': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      {/* Cloud */}
+      <path d="M22 52 Q16 52 14 46 Q12 40 18 38 Q18 28 28 26 Q34 18 44 20 Q54 18 58 26 Q68 26 70 34 Q76 36 74 44 Q72 52 64 52Z" stroke={col} strokeWidth="1.6" fill={`${col}10`}/>
+      {/* Server rack below */}
+      <rect x="22" y="58" width="46" height="8" rx="3" stroke={col} strokeWidth="1.2" fill={`${col}10`}/>
+      <rect x="22" y="68" width="46" height="8" rx="3" stroke={col} strokeWidth="1.2" fill={`${col}08`}/>
+      <circle cx="29" cy="62" r="2" fill={col} opacity="0.7"/>
+      <circle cx="29" cy="72" r="2" fill={col} opacity="0.5"/>
+      <rect x="33" y="60" width="16" height="4" rx="1" fill={`${col}25`}/>
+      <rect x="33" y="70" width="12" height="4" rx="1" fill={`${col}18`}/>
+      {/* Connection lines cloud to server */}
+      <line x1="30" y1="52" x2="30" y2="58" stroke={col} strokeWidth="1" strokeDasharray="2,2" opacity="0.5"/>
+      <line x1="45" y1="52" x2="45" y2="58" stroke={col} strokeWidth="1" strokeDasharray="2,2" opacity="0.5"/>
+      <line x1="60" y1="52" x2="60" y2="58" stroke={col} strokeWidth="1" strokeDasharray="2,2" opacity="0.5"/>
+      {/* Uptime badge */}
+      <rect x="52" y="36" width="18" height="9" rx="3" fill={`${col}22`} stroke={col} strokeWidth="0.8"/>
+      <text x="61" y="43" fill={col} fontSize="6" fontWeight="bold" textAnchor="middle" fontFamily="monospace">99.9%</text>
+      {/* Float particles */}
+      <circle cx="38" cy="36" r="2" fill={col} opacity="0.6"><animate attributeName="cy" values="36;30;36" dur="2.5s" repeatCount="indefinite"/></circle>
+      <circle cx="50" cy="32" r="1.5" fill={col} opacity="0.4"><animate attributeName="cy" values="32;26;32" dur="3s" repeatCount="indefinite"/></circle>
+    </svg>
+  ),
+  'telegram-bot': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      {/* Telegram plane shape */}
+      <circle cx="45" cy="45" r="32" stroke={col} strokeWidth="1.6" fill={`${col}08`}/>
+      <path d="M18 38 L72 20 L54 68 L40 52 Z" stroke={col} strokeWidth="1.4" fill={`${col}15`} strokeLinejoin="round"/>
+      <path d="M40 52 L36 66 L44 56" stroke={col} strokeWidth="1.4" fill={`${col}20`} strokeLinejoin="round"/>
+      <line x1="40" y1="52" x2="72" y2="20" stroke={col} strokeWidth="1" opacity="0.5"/>
+      {/* Bot indicators */}
+      <circle cx="64" cy="26" r="8" fill={`${col}15`} stroke={col} strokeWidth="1"/>
+      <circle cx="62" cy="24" r="1.5" fill={col} opacity="0.8"/>
+      <circle cx="66" cy="24" r="1.5" fill={col} opacity="0.8"/>
+      <path d="M61 28 Q64 30 67 28" stroke={col} strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+      {/* Signal waves */}
+      <path d="M76 42 Q80 38 78 34" stroke={col} strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.6"/>
+      <path d="M78 46 Q84 40 82 32" stroke={col} strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.4"/>
+    </svg>
+  ),
+  'ai-chatbot': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      {/* Chat bubble */}
+      <path d="M10 22 Q10 14 18 14 L58 14 Q66 14 66 22 L66 46 Q66 54 58 54 L32 54 L18 66 L22 54 L18 54 Q10 54 10 46 Z" stroke={col} strokeWidth="1.6" fill={`${col}08`}/>
+      {/* Text dots — typing indicator */}
+      <circle cx="26" cy="34" r="4" fill={`${col}30`} stroke={col} strokeWidth="1.2"/>
+      <circle cx="38" cy="34" r="4" fill={col} stroke={col} strokeWidth="1.2">
+        <animate attributeName="opacity" values="1;0.3;1" dur="1.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="50" cy="34" r="4" fill={`${col}30`} stroke={col} strokeWidth="1.2">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite" begin="0.4s"/>
+      </circle>
+      {/* Second bubble - response */}
+      <path d="M30 62 Q30 56 36 56 L74 56 Q80 56 80 62 L80 74 Q80 80 74 80 L52 80 L68 80 L64 80 L60 80 Q58 82 56 80 L36 80 Q30 80 30 74 Z" stroke={col} strokeWidth="1.2" fill={`${col}10`} opacity="0.8"/>
+      {/* AI response lines */}
+      <rect x="36" y="64" width="22" height="2" rx="1" fill={col} opacity="0.5"/>
+      <rect x="36" y="69" width="34" height="2" rx="1" fill={col} opacity="0.35"/>
+      <rect x="36" y="74" width="18" height="2" rx="1" fill={col} opacity="0.25"/>
+      {/* AI badge */}
+      <rect x="64" y="56" width="18" height="10" rx="3" fill={col} opacity="0.9"/>
+      <text x="73" y="64" fill="#030412" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="monospace">AI</text>
+    </svg>
+  ),
 };
 
 const RANKS = {
   'web-info':'S','ecommerce':'A','android':'A','ios':'S',
-  'hybrid':'S','digital':'A','payment':'B','blog':'B'
+  'hybrid':'S','digital':'A','payment':'B','blog':'B',
+  'ml-ai':'S','saas':'A','telegram-bot':'B','ai-chatbot':'A'
 };
 
 export default function CyberServiceCard({ service, delay = 0, onClick }) {
