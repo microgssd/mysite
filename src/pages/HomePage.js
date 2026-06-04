@@ -19,7 +19,7 @@ function PremiumTyper() {
           animate={{ opacity:1, y:0, filter:'blur(0px)' }}
           exit={{ opacity:0, y:-30, filter:'blur(8px)' }}
           transition={{ duration:0.55, ease:[0.16,1,0.3,1] }}
-          style={{ display:'inline-block', background:'linear-gradient(135deg,#00C9FF,#4FFFB0,#0052FF)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontFamily:'Sora,sans-serif', fontWeight:800 }}>
+          style={{ display:'inline-block', background:'linear-gradient(90deg,#00C9FF,#4FFFB0)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', fontFamily:'Orbitron,monospace', fontWeight:900, letterSpacing:'clamp(1px,0.03em,3px)', textShadow:'none' }}>
           {WORDS[index]}
         </motion.span>
       </AnimatePresence>
@@ -80,15 +80,17 @@ const TECH_ICONS = [
       </svg>
     )
   },
-  { name:'PostgreSQL', col:'#336791',
+  { name:'Express.js', col:'#68A063',
     svg: (c) => (
       <svg viewBox="0 0 60 60" fill="none">
-        <ellipse cx="30" cy="18" rx="16" ry="7" stroke={c} strokeWidth="1.6" fill={`${c}15`}/>
-        <rect x="14" y="18" width="32" height="24" stroke={c} strokeWidth="1.6" fill={`${c}08`}/>
-        <ellipse cx="30" cy="42" rx="16" ry="7" stroke={c} strokeWidth="1.6" fill={`${c}15`}/>
-        <line x1="14" y1="26" x2="46" y2="26" stroke={c} strokeWidth="0.8" strokeOpacity="0.4"/>
-        <line x1="14" y1="34" x2="46" y2="34" stroke={c} strokeWidth="0.8" strokeOpacity="0.4"/>
-        <path d="M44 14 Q52 18 52 26 L44 26" stroke={c} strokeWidth="1.4" fill="none" strokeLinecap="round"/>
+        <text x="30" y="22" textAnchor="middle" fill={c} fontSize="11" fontWeight="bold" fontFamily="monospace">EX</text>
+        <path d="M10 30 L50 30" stroke={c} strokeWidth="1.4" opacity="0.4"/>
+        <path d="M10 36 L30 36 L50 28" stroke={c} strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+        <circle cx="10" cy="36" r="2.5" fill={c} opacity="0.8"/>
+        <circle cx="50" cy="28" r="2.5" fill={c}/>
+        <circle cx="30" cy="36" r="2" fill={c} opacity="0.5"/>
+        <rect x="16" y="42" width="28" height="8" rx="3" stroke={c} strokeWidth="1.2" fill={`${c}12`}/>
+        <text x="30" y="48.5" textAnchor="middle" fill={c} fontSize="7" fontFamily="monospace" opacity="0.8">express</text>
       </svg>
     )
   },
@@ -107,26 +109,21 @@ const TECH_ICONS = [
       </svg>
     )
   },
-  { name:'Kubernetes', col:'#326CE5',
+  { name:'ML / AI', col:'#a855f7',
     svg: (c) => (
       <svg viewBox="0 0 60 60" fill="none">
-        <circle cx="30" cy="30" r="18" stroke={c} strokeWidth="1.6" fill={`${c}08`}/>
-        <circle cx="30" cy="30" r="5" stroke={c} strokeWidth="1.4" fill={`${c}20`}/>
-        {[0,45,90,135,180,225,270,315].map((deg,i) => {
-          const rad = deg * Math.PI / 180;
-          const x1 = 30 + 7 * Math.cos(rad);
-          const y1 = 30 + 7 * Math.sin(rad);
-          const x2 = 30 + 16 * Math.cos(rad);
-          const y2 = 30 + 16 * Math.sin(rad);
-          const cx2 = 30 + 19 * Math.cos(rad);
-          const cy2 = 30 + 19 * Math.sin(rad);
-          return (
-            <g key={i}>
-              <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={c} strokeWidth="1.2" opacity="0.7"/>
-              <circle cx={cx2} cy={cy2} r="2.5" fill={c} opacity={i%2===0?0.9:0.5}/>
-            </g>
-          );
-        })}
+        <circle cx="30" cy="22" r="4" fill={`${c}30`} stroke={c} strokeWidth="1.2"/>
+        <circle cx="16" cy="38" r="3.5" fill={`${c}30`} stroke={c} strokeWidth="1.2"/>
+        <circle cx="30" cy="38" r="4" fill={c} stroke={c} strokeWidth="1.2"/>
+        <circle cx="44" cy="38" r="3.5" fill={`${c}30`} stroke={c} strokeWidth="1.2"/>
+        <line x1="30" y1="26" x2="16" y2="35" stroke={c} strokeWidth="1" opacity="0.6"/>
+        <line x1="30" y1="26" x2="30" y2="34" stroke={c} strokeWidth="1" opacity="0.7"/>
+        <line x1="30" y1="26" x2="44" y2="35" stroke={c} strokeWidth="1" opacity="0.6"/>
+        <circle cx="30" cy="38" r="8" stroke={c} strokeWidth="0.8" fill="none" opacity="0.3">
+          <animate attributeName="r" values="5;10;5" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <text x="30" y="54" textAnchor="middle" fill={c} fontSize="7" fontFamily="monospace" opacity="0.7">ML/AI</text>
       </svg>
     )
   },
@@ -187,7 +184,7 @@ export default function HomePage({ go }) {
     <div style={{ paddingTop:72, overflowX:'hidden' }}>
 
       {/* HERO */}
-      <section style={{ minHeight:'100vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'clamp(80px,10vw,120px) clamp(16px,5vw,32px) 60px', position:'relative', overflow:'hidden' }}>
+      <section style={{ minHeight:'100vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'clamp(72px,8vw,110px) clamp(16px,5vw,32px) clamp(30px,5vw,60px)', position:'relative', overflow:'hidden' }}>
         <div style={{ position:'absolute', width:'min(600px,80vw)', height:'min(600px,80vw)', borderRadius:'50%', background:'radial-gradient(circle,rgba(0,201,255,0.12) 0%,transparent 70%)', top:'-5%', left:'3%', pointerEvents:'none', animation:'aurora1 14s ease-in-out infinite' }}/>
         <div style={{ position:'absolute', width:'min(400px,60vw)', height:'min(400px,60vw)', borderRadius:'50%', background:'radial-gradient(circle,rgba(79,255,176,0.07) 0%,transparent 70%)', bottom:'5%', right:'5%', pointerEvents:'none', animation:'aurora2 18s ease-in-out infinite' }}/>
         {/* Cyber grid overlay */}
@@ -197,7 +194,7 @@ export default function HomePage({ go }) {
         ))}
 
         <motion.div initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }} transition={{ duration:.8, ease:[.16,1,.3,1] }} style={{ position:'relative', zIndex:1, maxWidth:860, width:'100%' }}>
-          <motion.div style={{ display:'flex', justifyContent:'center', marginBottom:22 }}
+          <motion.div style={{ display:'flex', justifyContent:'center', marginBottom:'clamp(10px,2vw,22px)' }}
             animate={{ filter:['drop-shadow(0 0 14px rgba(0,201,255,0.5))','drop-shadow(0 0 34px rgba(79,255,176,0.9))','drop-shadow(0 0 14px rgba(0,201,255,0.5))'] }} transition={{ duration:3.2, repeat:Infinity }}>
             <AquronLogoCanvas size={96} />
           </motion.div>
@@ -207,10 +204,16 @@ export default function HomePage({ go }) {
             Trusted by 150+ clients · 30+ countries · Kolkata, India
           </motion.div>
 
-          <h1 style={{ fontFamily:'Sora,sans-serif', fontSize:'clamp(28px,5.5vw,68px)', fontWeight:800, lineHeight:1.06, marginBottom:12, color:'#fff', letterSpacing:'clamp(-0.5px,-0.03em,-1px)' }}>
-            We Craft Exceptional<br /><PremiumTyper />
+          <h1 style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(22px,4.5vw,58px)', fontWeight:900, lineHeight:1.1, marginBottom:12, color:'#fff', letterSpacing:'clamp(0px,0.02em,2px)', textShadow:'0 0 40px rgba(0,201,255,0.3)' }}>
+            <span style={{ display:'block', fontSize:'clamp(11px,1.5vw,14px)', fontFamily:'Rajdhani,sans-serif', color:'rgba(0,201,255,0.7)', letterSpacing:'clamp(3px,0.5vw,8px)', textTransform:'uppercase', marginBottom:8, fontWeight:600 }}>
+              [ AQURON DIGITAL AGENCY ]
+            </span>
+            WE CRAFT EXCEPTIONAL<br />
+            <span style={{ display:'inline-block', position:'relative' }}>
+              <PremiumTyper />
+            </span>
           </h1>
-          <p style={{ fontSize:'clamp(14px,1.6vw,18px)', color:'rgba(255,255,255,0.54)', maxWidth:580, margin:'16px auto 34px', lineHeight:1.88 }}>
+          <p style={{ fontSize:'clamp(13px,1.4vw,17px)', color:'rgba(148,200,240,0.65)', maxWidth:580, margin:'14px auto 30px', lineHeight:1.88, fontFamily:'Rajdhani,sans-serif', fontWeight:500, letterSpacing:'0.3px' }}>
             Aquron is a full-service digital agency crafting fluid, high-performance websites, mobile apps, e-commerce, and marketing for bold brands worldwide.
           </p>
           <div style={{ display:'flex', gap:14, justifyContent:'center', flexWrap:'wrap' }}>
