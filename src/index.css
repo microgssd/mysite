@@ -450,3 +450,19 @@ select:focus {
 @keyframes spinr   { to{transform:rotate(-360deg)} }
 @keyframes cursorSpin  { to{transform:rotate(360deg)} }
 @keyframes cursorSpinR { to{transform:rotate(-360deg)} }
+
+/* ── Hero visual nodes: 2 rows on mobile ── */
+@media (max-width: 640px) {
+  .hero-nodes-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+    height: auto !important;
+    padding: 8px 0 !important;
+  }
+  .hero-section { padding-top: 72px !important; }
+  .hero-logo { margin-bottom: 14px !important; }
+}
+/* Stats grid mobile */
+@media (max-width: 480px) {
+  .stats-grid-cyber { grid-template-columns: 1fr 1fr !important; }
+}
