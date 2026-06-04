@@ -54,6 +54,7 @@ body {
 /* ── AURORA BG ── */
 .aurora-bg {
   position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  background: #04071a;
 }
 .aurora-blob {
   position: absolute; border-radius: 50%; filter: blur(80px); opacity: .16;
@@ -508,3 +509,5 @@ select:focus {
   font-size: 11px;
   letter-spacing: 1px;
 }
+
+@keyframes scanDown { 0%{top:-2px} 100%{top:100vh} }
