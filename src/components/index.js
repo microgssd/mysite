@@ -77,7 +77,8 @@ export function Navbar({ page, go }) {
           {links.map(([id, label]) => (
             <button key={id} className={`nav-btn ${currentPage===id?'active':''}`}
               ref={currentPage===id ? activeRef : null}
-              onClick={() => { go(id); setMobileOpen(false); }}>
+              onClick={() => { go(id); setMobileOpen(false); }}
+              style={{ fontFamily:'Orbitron,monospace', fontSize:11, letterSpacing:1.2 }}>
               {label}
             </button>
           ))}
@@ -106,7 +107,7 @@ export function Navbar({ page, go }) {
             {links.map(([id,label],i) => (
               <motion.button key={id} initial={{ x:-20, opacity:0 }} animate={{ x:0, opacity:1 }} transition={{ delay:i*.04 }}
                 onClick={() => { go(id); setMobileOpen(false); }}
-                style={{ display:'block', width:'100%', textAlign:'left', background:'none', border:'none', borderBottom:'1px solid rgba(255,255,255, 0.05)', padding:'13px 28px', color: currentPage===id?'#00C9FF':'rgba(255,255,255, 0.72)', fontFamily:'Manrope,sans-serif', fontSize:15, cursor:'pointer' }}>
+                style={{ display:'block', width:'100%', textAlign:'left', background:'none', border:'none', borderBottom:'1px solid rgba(0,201,255,0.08)', padding:'14px 28px', color: currentPage===id?'#00C9FF':'rgba(160,210,255,0.65)', fontFamily:'Orbitron,monospace', fontSize:12, cursor:'pointer', letterSpacing:1.5 }}>
                 {label}
               </motion.button>
             ))}
