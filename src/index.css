@@ -466,3 +466,10 @@ select:focus {
 @media (max-width: 480px) {
   .stats-grid-cyber { grid-template-columns: 1fr 1fr !important; }
 }
+
+/* ── Tech stack icons: 2 rows on mobile ── */
+@media (max-width: 600px) {
+  .tech-stack-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
