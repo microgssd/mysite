@@ -473,3 +473,37 @@ select:focus {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 }
+
+/* ── HERO MOBILE: kill the gap ── */
+@media (max-width: 768px) {
+  .hero-section-main {
+    padding-top: 72px !important;
+    min-height: auto !important;
+    padding-bottom: 40px !important;
+  }
+  .hero-logo-wrap { margin-bottom: 12px !important; }
+  .hero-tech-section { margin-top: 16px !important; }
+  /* Orbitron nav on mobile */
+  .nav-btn {
+    font-family: 'Orbitron', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 1.2px !important;
+  }
+  /* Tech icons 4+4 rows */
+  .tech-stack-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+  }
+}
+@media (max-width: 480px) {
+  .tech-stack-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+  }
+}
+/* Cyberpunk navbar font */
+.nav-btn {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
