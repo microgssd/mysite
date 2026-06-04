@@ -83,6 +83,42 @@ export const SERVICES = [
     proc: ['Strategy','Architecture','Design','CMS Setup','Migration','Launch'],
     stats: [{n:'5x',l:'SEO Traffic'},{n:'2min',l:'Publish Post'},{n:'unlimited',l:'Articles'},{n:'99%',l:'Delivery'}],
   },
+  {
+    id: 'ml-ai', icon: '🤖', title: 'Machine Learning & AI',
+    short: 'Custom ML models, AI pipelines, and data-driven automation', col: '#a855f7',
+    hero: 'Deploy intelligent systems that learn, predict, and automate -- from recommendation engines to computer vision pipelines.',
+    feats: ['Custom ML model training','NLP & text classification','Computer vision pipelines','Recommendation engines','Predictive analytics','Data preprocessing & ETL','Model deployment & MLOps','API-ready inference endpoints','A/B model testing','Explainable AI dashboards'],
+    tech: ['Python','TensorFlow','PyTorch','scikit-learn','FastAPI','AWS SageMaker','Docker','PostgreSQL'],
+    proc: ['Data Audit','Model Design','Training','Validation','Deployment','Monitor'],
+    stats: [{n:'95%+',l:'Accuracy'},{n:'10x',l:'Faster Inference'},{n:'48h',l:'Prototype'},{n:'100%',l:'MLOps Ready'}],
+  },
+  {
+    id: 'saas', icon: '☁️', title: 'SaaS Development',
+    short: 'Full-stack SaaS platforms built to scale from day one', col: '#06b6d4',
+    hero: 'Launch your SaaS product with multi-tenancy, billing, auth, and analytics all baked in from day one.',
+    feats: ['Multi-tenant architecture','Stripe subscription billing','Role-based access control','Usage metering & limits','Onboarding flows','Admin dashboard','Webhook & API ecosystem','Audit logs','White-label options','99.9% SLA infrastructure'],
+    tech: ['Next.js','Node.js','PostgreSQL','Stripe','Redis','Docker','AWS','Prisma'],
+    proc: ['Discovery','Architecture','Design','Build','Beta','Launch'],
+    stats: [{n:'99.9%',l:'Uptime'},{n:'<50ms',l:'API Response'},{n:'∞',l:'Scale'},{n:'SOC2',l:'Ready'}],
+  },
+  {
+    id: 'telegram-bot', icon: '✈️', title: 'Telegram Bot Development',
+    short: 'Powerful bots for business automation, e-commerce, and community', col: '#0ea5e9',
+    hero: 'Automate customer support, run entire businesses, and engage communities through intelligent Telegram bots.',
+    feats: ['Inline keyboards & menus','Payment integration','Admin panel','Broadcast messaging','User management','Multi-language support','Analytics & reporting','Webhook mode','Group & channel bots','Mini App integration'],
+    tech: ['Node.js','Python','Telegraf','Grammy','MongoDB','Redis','Stripe','Webhook'],
+    proc: ['Bot Design','Command Map','Build','Test','Deploy','Monitor'],
+    stats: [{n:'10k+',l:'Users/Bot'},{n:'99%',l:'Uptime'},{n:'<200ms',l:'Response'},{n:'24/7',l:'Running'}],
+  },
+  {
+    id: 'ai-chatbot', icon: '💬', title: 'AI Chatbot Development',
+    short: 'LLM-powered chatbots trained on your business data', col: '#10b981',
+    hero: 'Deploy AI chatbots powered by GPT-4, Claude, or fine-tuned models -- trained on your docs, FAQs, and product data.',
+    feats: ['GPT-4 / Claude integration','Custom knowledge base RAG','Website chat widget','WhatsApp & Telegram deploy','Lead capture flows','Handoff to human agent','Multi-language support','Conversation analytics','CRM integration','Custom persona & tone'],
+    tech: ['OpenAI API','LangChain','Pinecone','Node.js','React','PostgreSQL','Redis','Vercel'],
+    proc: ['Knowledge Audit','RAG Setup','Bot Train','Widget Build','Test','Deploy'],
+    stats: [{n:'90%+',l:'Query Resolved'},{n:'24/7',l:'Available'},{n:'40%',l:'Support Saved'},{n:'GPT-4',l:'Powered'}],
+  },
 ];
 
 export const PORTFOLIO = [
