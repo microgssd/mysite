@@ -435,28 +435,91 @@ export function Reveal({ children, delay = 0, direction = 'up', className = '' }
 
 // ─── PORTFOLIO CARD WITH MODAL ─────────────────────────────────
 export function PortfolioCard({ p, onClick, delay = 0 }) {
+  const [hov, setHov] = React.useState(false);
   return (
-    <motion.div initial={{ opacity:0, y:40 }} animate={{ opacity:1, y:0 }} transition={{ delay, type:'spring', stiffness:180 }}
-      onClick={onClick} style={{ background:'rgba(255,255,255, 0.035)', border:'1px solid rgba(0,201,255, 0.12)', borderRadius:18, overflow:'hidden', cursor:'pointer' }}
-      whileHover={{y:-9, boxShadow:'0 22px 50px rgba(0,201,255, 0.14)'}}>
-      <div style={{ height:148, background:`linear-gradient(135deg,${p.col}22,${p.col}08)`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:58, position:'relative', overflow:'hidden' }}>
-        <motion.span whileHover={{scale:1.25}} style={{ display:'block', position:'relative', zIndex:1, filter:'drop-shadow(0 4px 16px rgba(0,0,0, 0.4))' }}>{p.em}</motion.span>
-        <div style={{ position:'absolute', top:10, right:10, background:p.col, color:'#030412', fontSize:10.5, fontWeight:700, padding:'3px 10px', borderRadius:20 }}>{p.cat}</div>
-        {p.link && <a href={p.link} target="_blank" rel="noreferrer" onClick={e=>e.stopPropagation()} style={{ position:'absolute', bottom:8, left:10, background:'rgba(0,0,0, 0.62)', color:'#fff', fontSize:10.5, fontWeight:600, padding:'3px 9px', borderRadius:6, textDecoration:'none', border:'1px solid rgba(255,255,255, 0.15)' }}>↗ Live</a>}
-      </div>
-      <div style={{ padding:20 }}>
-        <h3 style={{ fontFamily:'Sora,sans-serif', color:'#fff', fontSize:15.5, fontWeight:700, marginBottom:4, letterSpacing:'-.3px' }}>{p.title}</h3>
-        <p style={{ color:'rgba(255,255,255, 0.32)', fontSize:11.5, marginBottom:9 }}>{p.tech}</p>
-        <p style={{ color:'rgba(255,255,255, 0.58)', fontSize:12.5, lineHeight:1.65, marginBottom:11 }}>{p.desc}</p>
-        <div style={{ display:'flex', flexWrap:'wrap', gap:4 }}>
-          {p.res.map(r => <span key={r} style={{ background:'rgba(79,255,176, 0.07)', color:'#4FFFB0', fontSize:10.5, fontWeight:600, padding:'2px 8px', borderRadius:20 }}>✓ {r}</span>)}
+    <motion.div
+      initial={{ opacity:0, y:30 }}
+      animate={{ opacity:1, y:0 }}
+      transition={{ delay, type:'spring', stiffness:180 }}
+      whileHover={{ y:-8, scale:1.02 }}
+      whileTap={{ scale:0.98 }}
+      onHoverStart={() => setHov(true)}
+      onHoverEnd={() => setHov(false)}
+      onClick={onClick}
+      style={{ background:'rgba(3,6,24,0.95)', border:`1px solid ${hov ? p.col : p.col+'33'}`,
+        borderRadius:12, overflow:'hidden', cursor:'pointer', position:'relative',
+        boxShadow: hov ? `0 0 0 1px ${p.col}55, 0 16px 48px rgba(0,0,0,0.6), 0 0 30px ${p.col}14` : '0 4px 24px rgba(0,0,0,0.5)',
+        transition:'border-color 0.3s, box-shadow 0.3s' }}>
+      {/* Top accent bar */}
+      <div style={{ height:3, background:`linear-gradient(90deg,${p.col},${p.col}44,transparent)` }}/>
+      {/* Animated scan line */}
+      <motion.div style={{ position:'absolute', left:0, right:0, height:1,
+        background:`linear-gradient(90deg,transparent,${p.col}55,transparent)` }}
+        animate={{ top:['3px','100%'] }} transition={{ duration:3.5, repeat:Infinity, ease:'linear' }}/>
+      {/* Corner brackets */}
+      {[['top','left'],['top','right'],['bottom','left'],['bottom','right']].map(([v,h],i) => (
+        <div key={i} style={{ position:'absolute', [v]:6, [h]:6, width:10, height:10,
+          borderTop: v==='top' ? `1.5px solid ${hov?p.col:p.col+'55'}` : 'none',
+          borderBottom: v==='bottom' ? `1.5px solid ${hov?p.col:p.col+'55'}` : 'none',
+          borderLeft: h==='left' ? `1.5px solid ${hov?p.col:p.col+'55'}` : 'none',
+          borderRight: h==='right' ? `1.5px solid ${hov?p.col:p.col+'55'}` : 'none',
+          transition:'border-color 0.3s' }}/>
+      ))}
+      <div style={{ padding:'18px 18px 16px' }}>
+        {/* Header row */}
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:14 }}>
+          <div style={{ width:52, height:52, background:`${p.col}10`, borderRadius:10,
+            display:'flex', alignItems:'center', justifyContent:'center', fontSize:26,
+            border:`1px solid ${p.col}33`, flexShrink:0,
+            boxShadow: hov ? `0 0 16px ${p.col}44` : 'none', transition:'box-shadow 0.3s' }}>
+            {p.em}
+          </div>
+          <div style={{ textAlign:'right' }}>
+            <span style={{ fontFamily:'Orbitron,monospace', fontSize:9, color:p.col,
+              border:`1px solid ${p.col}44`, borderRadius:4, padding:'3px 8px', letterSpacing:1,
+              background:`${p.col}0f`, display:'block', marginBottom:5 }}>
+              {p.cat.toUpperCase()}
+            </span>
+            <span style={{ fontFamily:'monospace', fontSize:9, color:`${p.col}55` }}>DEPLOYED</span>
+          </div>
+        </div>
+        {/* Title */}
+        <h3 style={{ fontFamily:'Orbitron,monospace', fontSize:15, fontWeight:800,
+          color: hov ? '#fff' : '#c8e8ff', marginBottom:8, letterSpacing:0.5,
+          textShadow: hov ? `0 0 12px ${p.col}` : 'none', transition:'text-shadow 0.3s, color 0.3s' }}>
+          {p.title}
+        </h3>
+        {/* Description */}
+        <p style={{ color:'rgba(160,200,240,0.55)', fontSize:13, lineHeight:1.65, marginBottom:13,
+          fontFamily:'Rajdhani,sans-serif' }}>
+          {p.desc}
+        </p>
+        {/* Results chips */}
+        <div style={{ display:'flex', flexWrap:'wrap', gap:5, marginBottom:12 }}>
+          {(p.res || p.results || []).map(r => (
+            <span key={r} style={{ background:`${p.col}0d`, border:`1px solid ${p.col}33`,
+              color:p.col, fontSize:10.5, fontWeight:600, padding:'3px 10px', borderRadius:4,
+              fontFamily:'Rajdhani,sans-serif' }}>✓ {r}</span>
+          ))}
+        </div>
+        {/* Tech + link row */}
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+          <p style={{ color:`${p.col}55`, fontSize:10.5, fontFamily:'monospace', letterSpacing:0.3 }}>
+            {p.tech}
+          </p>
+          {p.link && (
+            <span style={{ fontFamily:'Orbitron,monospace', fontSize:9, color:p.col,
+              opacity: hov ? 1 : 0.5, transition:'opacity 0.3s', letterSpacing:1 }}>
+              ↗ LIVE
+            </span>
+          )}
         </div>
       </div>
     </motion.div>
   );
 }
 
-// ─── SECTION HEADER ───────────────────────────────────────────
+
 export function SectionHeader({ label, title, sub, labelColor, center = true }) {
   return (
     <Reveal>
