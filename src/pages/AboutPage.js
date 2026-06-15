@@ -119,65 +119,195 @@ export default function AboutPage({ go }) {
 
           <div className="team-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:28, maxWidth:1000, margin:'0 auto' }}>
 
-            {/* ── CEO ── */}
-            <Reveal delay={0} direction="left">
-              <motion.div
-                style={{ background:'linear-gradient(160deg,rgba(4,6,20,0.98),rgba(10,14,36,0.97))', border:'1px solid rgba(255,215,0,0.2)', borderRadius:16, overflow:'hidden', position:'relative' }}
-                whileHover={{ y:-8, borderColor:'rgba(255,215,0,0.5)', boxShadow:'0 28px 64px rgba(255,215,0,0.1)' }}>
-                <div style={{ height:3, background:'linear-gradient(90deg,#FFD700,rgba(255,215,0,0.3),transparent)' }}/>
-                <motion.div style={{ position:'absolute', left:0, right:0, height:1, background:'linear-gradient(90deg,transparent,rgba(255,215,0,0.2),transparent)', zIndex:0 }}
-                  animate={{ top:['3px','100%'] }} transition={{ duration:5, repeat:Infinity, ease:'linear' }}/>
-                {[['top','left'],['top','right'],['bottom','left'],['bottom','right']].map(([v,h],i)=>(
-                  <div key={i} style={{ position:'absolute',[v]:8,[h]:8,width:14,height:14,
-                    borderTop:v==='top'?'1.5px solid rgba(255,215,0,0.5)':'none',
-                    borderBottom:v==='bottom'?'1.5px solid rgba(255,215,0,0.5)':'none',
-                    borderLeft:h==='left'?'1.5px solid rgba(255,215,0,0.5)':'none',
-                    borderRight:h==='right'?'1.5px solid rgba(255,215,0,0.5)':'none',zIndex:1 }}/>
-                ))}
+         {/* ── CEO ── */}
+<Reveal delay={0} direction="left">
+  <motion.div
+    style={{
+      background:'linear-gradient(160deg,rgba(4,6,20,0.98),rgba(10,14,36,0.97))',
+      border:'1px solid rgba(255,140,0,0.25)',
+      borderRadius:16,
+      overflow:'hidden',
+      position:'relative'
+    }}
+    whileHover={{
+      y:-8,
+      borderColor:'rgba(255,140,0,0.55)',
+      boxShadow:'0 28px 64px rgba(128,0,255,0.18)'
+    }}
+  >
+    <div style={{ height:3, background:'linear-gradient(90deg,#FF7A00,rgba(128,0,255,0.45),transparent)' }}/>
 
-                <div style={{ padding:'32px 28px 28px', position:'relative', zIndex:1 }}>
-                  <div style={{ display:'flex', alignItems:'flex-start', gap:20, marginBottom:24 }}>
-                    <div style={{ flexShrink:0, width:70, height:70, borderRadius:12, background:'linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,215,0,0.05))', border:'1px solid rgba(255,215,0,0.3)', display:'flex', alignItems:'center', justifyContent:'center', position:'relative' }}>
-                      <span style={{ fontFamily:'Orbitron,monospace', fontSize:26, fontWeight:900, color:'#FFD700', textShadow:'0 0 20px rgba(255,215,0,0.7)', letterSpacing:-1 }}>SD</span>
-                      <motion.div style={{ position:'absolute', inset:-4, borderRadius:16, border:'1px solid rgba(255,215,0,0.3)' }}
-                        animate={{ opacity:[0.3,0.8,0.3], scale:[0.96,1.02,0.96] }} transition={{ duration:2.5, repeat:Infinity }}/>
-                    </div>
-                    <div style={{ flex:1 }}>
-                      <div style={{ display:'inline-flex', alignItems:'center', gap:6, background:'rgba(255,215,0,0.07)', border:'1px solid rgba(255,215,0,0.2)', borderRadius:4, padding:'3px 10px', marginBottom:8, fontFamily:'Orbitron,monospace', fontSize:8, color:'rgba(255,215,0,0.8)', letterSpacing:1.5 }}>
-                        ⚡ CEO / LEAD DEV
-                      </div>
-                      <h3 style={{ fontFamily:'Orbitron,monospace', color:'#fff', fontSize:'clamp(16px,2.2vw,22px)', fontWeight:900, letterSpacing:1, marginBottom:3, textShadow:'0 0 16px rgba(255,215,0,0.35)' }}>
-                        SAYAN DHAR
-                      </h3>
-                      <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(255,215,0,0.6)', fontSize:12, fontWeight:600, letterSpacing:2, textTransform:'uppercase' }}>
-                        CEO & Development Head
-                      </p>
-                    </div>
-                  </div>
+    <motion.div
+      style={{
+        position:'absolute',
+        left:0,
+        right:0,
+        height:1,
+        background:'linear-gradient(90deg,transparent,rgba(255,140,0,0.22),transparent)',
+        zIndex:0
+      }}
+      animate={{ top:['3px','100%'] }}
+      transition={{ duration:5, repeat:Infinity, ease:'linear' }}
+    />
 
-                  <div style={{ height:1, background:'linear-gradient(90deg,rgba(255,215,0,0.3),transparent)', marginBottom:18 }}/>
+    {[['top','left'],['top','right'],['bottom','left'],['bottom','right']].map(([v,h],i)=>(
+      <div
+        key={i}
+        style={{
+          position:'absolute',
+          [v]:8,
+          [h]:8,
+          width:14,
+          height:14,
+          borderTop:v==='top'?'1.5px solid rgba(255,140,0,0.6)':'none',
+          borderBottom:v==='bottom'?'1.5px solid rgba(255,140,0,0.6)':'none',
+          borderLeft:h==='left'?'1.5px solid rgba(255,140,0,0.6)':'none',
+          borderRight:h==='right'?'1.5px solid rgba(255,140,0,0.6)':'none',
+          zIndex:1
+        }}
+      />
+    ))}
 
-                  <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(180,215,255,0.65)', fontSize:14.5, lineHeight:1.8, marginBottom:22 }}>
-                    Full-stack architect and founder of Aquron with 5+ years building scalable digital products for 150+ clients across 6+ countries. Personally leads every major technical decision and client engagement.
-                  </p>
+    <div style={{ padding:'32px 28px 28px', position:'relative', zIndex:1 }}>
+      <div style={{ display:'flex', alignItems:'flex-start', gap:20, marginBottom:24 }}>
+        <div
+          style={{
+            flexShrink:0,
+            width:70,
+            height:70,
+            borderRadius:12,
+            background:'linear-gradient(135deg,rgba(255,122,0,0.16),rgba(128,0,255,0.12))',
+            border:'1px solid rgba(255,140,0,0.35)',
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            position:'relative'
+          }}
+        >
+          <span
+            style={{
+              fontFamily:'Orbitron,monospace',
+              fontSize:26,
+              fontWeight:900,
+              color:'#FF7A00',
+              textShadow:'0 0 20px rgba(128,0,255,0.8)',
+              letterSpacing:-1
+            }}
+          >
+            SD
+          </span>
 
-                  <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:10, marginBottom:20 }}>
-                    {[['5+','Years Exp'],['150+','Projects'],['15+','Tech Stack']].map(([n,l])=>(
-                      <div key={l} style={{ background:'rgba(255,215,0,0.05)', border:'1px solid rgba(255,215,0,0.12)', borderRadius:8, padding:'10px 6px', textAlign:'center' }}>
-                        <div style={{ fontFamily:'Orbitron,monospace', fontSize:16, fontWeight:900, color:'#FFD700', marginBottom:2 }}>{n}</div>
-                        <div style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(255,255,255,0.35)', fontSize:10, letterSpacing:0.8, textTransform:'uppercase' }}>{l}</div>
-                      </div>
-                    ))}
-                  </div>
+          <motion.div
+            style={{
+              position:'absolute',
+              inset:-4,
+              borderRadius:16,
+              border:'1px solid rgba(128,0,255,0.4)'
+            }}
+            animate={{ opacity:[0.3,0.8,0.3], scale:[0.96,1.02,0.96] }}
+            transition={{ duration:2.5, repeat:Infinity }}
+          />
+        </div>
 
-                  <div style={{ display:'flex', flexWrap:'wrap', gap:6 }}>
-                    {['React','Next.js','Node.js','Express.js','MongoDB','System Design','TypeScript','Machine Learning'].map(sk=>(
-                      <span key={sk} style={{ background:'rgba(255,215,0,0.06)', border:'1px solid rgba(255,215,0,0.18)', color:'rgba(255,215,0,0.65)', fontSize:10.5, padding:'4px 10px', borderRadius:4, fontFamily:'monospace', letterSpacing:0.3 }}>{sk}</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </Reveal>
+        <div style={{ flex:1 }}>
+          <div
+            style={{
+              display:'inline-flex',
+              alignItems:'center',
+              gap:6,
+              background:'rgba(255,122,0,0.08)',
+              border:'1px solid rgba(128,0,255,0.25)',
+              borderRadius:4,
+              padding:'3px 10px',
+              marginBottom:8,
+              fontFamily:'Orbitron,monospace',
+              fontSize:8,
+              color:'rgba(255,160,60,0.95)',
+              letterSpacing:1.5
+            }}
+          >
+            ⚡ CEO / LEAD DEV
+          </div>
+
+          <h3
+            style={{
+              fontFamily:'Orbitron,monospace',
+              color:'#fff',
+              fontSize:'clamp(16px,2.2vw,22px)',
+              fontWeight:900,
+              letterSpacing:1,
+              marginBottom:3,
+              textShadow:'0 0 16px rgba(128,0,255,0.55)'
+            }}
+          >
+            SAYAN DHAR
+          </h3>
+
+          <p
+            style={{
+              fontFamily:'Rajdhani,sans-serif',
+              color:'rgba(255,140,0,0.7)',
+              fontSize:12,
+              fontWeight:600,
+              letterSpacing:2,
+              textTransform:'uppercase'
+            }}
+          >
+            CEO & Development Head
+          </p>
+        </div>
+      </div>
+
+      <div style={{ height:1, background:'linear-gradient(90deg,rgba(255,122,0,0.4),rgba(128,0,255,0.25),transparent)', marginBottom:18 }}/>
+
+      <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(180,215,255,0.65)', fontSize:14.5, lineHeight:1.8, marginBottom:22 }}>
+        Full-stack architect and founder of Aquron with 5+ years building scalable digital products for 150+ clients across 6+ countries. Personally leads every major technical decision and client engagement.
+      </p>
+
+      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:10, marginBottom:20 }}>
+        {[['5+','Years Exp'],['150+','Projects'],['15+','Tech Stack']].map(([n,l])=>(
+          <div
+            key={l}
+            style={{
+              background:'rgba(255,122,0,0.05)',
+              border:'1px solid rgba(128,0,255,0.18)',
+              borderRadius:8,
+              padding:'10px 6px',
+              textAlign:'center'
+            }}
+          >
+            <div style={{ fontFamily:'Orbitron,monospace', fontSize:16, fontWeight:900, color:'#FF7A00', marginBottom:2 }}>
+              {n}
+            </div>
+            <div style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(255,255,255,0.35)', fontSize:10, letterSpacing:0.8, textTransform:'uppercase' }}>
+              {l}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display:'flex', flexWrap:'wrap', gap:6 }}>
+        {['React','Next.js','Node.js','Express.js','MongoDB','System Design','TypeScript','Machine Learning'].map(sk=>(
+          <span
+            key={sk}
+            style={{
+              background:'rgba(255,122,0,0.06)',
+              border:'1px solid rgba(128,0,255,0.18)',
+              color:'rgba(255,160,60,0.85)',
+              fontSize:10.5,
+              padding:'4px 10px',
+              borderRadius:4,
+              fontFamily:'monospace',
+              letterSpacing:0.3
+            }}
+          >
+            {sk}
+          </span>
+        ))}
+      </div>
+    </div>
+  </motion.div>
+</Reveal>
 
             {/* ── OPS ── */}
             <Reveal delay={0.12} direction="right">
