@@ -171,7 +171,7 @@ export default function AboutPage({ go }) {
                   </div>
 
                   <div style={{ display:'flex', flexWrap:'wrap', gap:6 }}>
-                    {['React','Next.js','Node.js','MongoDB','System Design','TypeScript'].map(sk=>(
+                    {['React','Next.js','Node.js','MongoDB','System Design','TypeScript','Machine Learning'].map(sk=>(
                       <span key={sk} style={{ background:'rgba(255,215,0,0.06)', border:'1px solid rgba(255,215,0,0.18)', color:'rgba(255,215,0,0.65)', fontSize:10.5, padding:'4px 10px', borderRadius:4, fontFamily:'monospace', letterSpacing:0.3 }}>{sk}</span>
                     ))}
                   </div>
