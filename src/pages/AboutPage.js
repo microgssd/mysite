@@ -340,7 +340,7 @@ export default function AboutPage({ go }) {
                         CHRISTIAN ANKAN
                       </h3>
                       <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(0,201,255,0.6)', fontSize:12, fontWeight:600, letterSpacing:2, textTransform:'uppercase' }}>
-                        Operations Manager
+                        Director & Operations Manager
                       </p>
                     </div>
                   </div>
