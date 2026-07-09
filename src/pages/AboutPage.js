@@ -328,7 +328,7 @@ export default function AboutPage({ go }) {
                 <div style={{ padding:'32px 28px 28px', position:'relative', zIndex:1 }}>
                   <div style={{ display:'flex', alignItems:'flex-start', gap:20, marginBottom:24 }}>
                     <div style={{ flexShrink:0, width:70, height:70, borderRadius:12, background:'linear-gradient(135deg,rgba(0,201,255,0.12),rgba(0,201,255,0.04))', border:'1px solid rgba(0,201,255,0.28)', display:'flex', alignItems:'center', justifyContent:'center', position:'relative' }}>
-                      <span style={{ fontFamily:'Orbitron,monospace', fontSize:26, fontWeight:900, color:'#00C9FF', textShadow:'0 0 20px rgba(0,201,255,0.7)', letterSpacing:-1 }}>AG</span>
+                      <span style={{ fontFamily:'Orbitron,monospace', fontSize:26, fontWeight:900, color:'#00C9FF', textShadow:'0 0 20px rgba(0,201,255,0.7)', letterSpacing:-1 }}>CA</span>
                       <motion.div style={{ position:'absolute', inset:-4, borderRadius:16, border:'1px solid rgba(0,201,255,0.25)' }}
                         animate={{ opacity:[0.2,0.7,0.2], scale:[0.96,1.02,0.96] }} transition={{ duration:3, repeat:Infinity }}/>
                     </div>
@@ -337,7 +337,7 @@ export default function AboutPage({ go }) {
                         🎯 OPS LEAD / MANAGER
                       </div>
                       <h3 style={{ fontFamily:'Orbitron,monospace', color:'#fff', fontSize:'clamp(16px,2.2vw,22px)', fontWeight:900, letterSpacing:1, marginBottom:3, textShadow:'0 0 16px rgba(0,201,255,0.3)' }}>
-                        ANKAN GHOSH
+                        CHRISTIAN ANKAN
                       </h3>
                       <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(0,201,255,0.6)', fontSize:12, fontWeight:600, letterSpacing:2, textTransform:'uppercase' }}>
                         Operations Manager
