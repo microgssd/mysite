@@ -122,13 +122,14 @@ export const SERVICES = [
 ];
 
 export const PORTFOLIO = [
-  { title:'TrueOdds', cat:'Web App', tech:'Next.js · Node.js · MongoDB', em:'🎯', col:'#FF9F43', link:'https://trueodds.ca', desc:'Canadian sports analytics -- real-time odds comparison & value bet detection across all major leagues.', res:['50k+ monthly users','20+ books real-time','Sub-200ms loads'] },
-  { title:'UrbanNest', cat:'E-Commerce', tech:'Next.js · Stripe · MongoDB', em:'🏠', col:'#00C9FF', desc:'Luxury real-estate marketplace with virtual tours and Stripe subscription billing for premium listings.', res:['$2M+ properties listed','300% conversion lift','Stripe billing'] },
-  { title:'Pulsify Health', cat:'Web App', tech:'React · Node.js · PostgreSQL', em:'💊', col:'#4FFFB0', desc:'Healthcare SaaS with real-time vitals monitoring, appointment booking, and HIPAA-compliant storage.', res:['10k+ patients','HIPAA compliant','Real-time vitals'] },
-  { title:'GoDeliver', cat:'Hybrid App', tech:'React Native · Firebase', em:'🚚', col:'#FF6584', desc:'Food-delivery app -- 50k+ daily orders across 12 cities with live GPS tracking and in-app payments.', res:['50k+ daily orders','12 cities','4.8★ rating'] },
-  { title:'CryptoLens', cat:'Web + Android', tech:'Flutter · Web3.js · Node.js', em:'📊', col:'#7c3aed', desc:'Multi-chain DeFi tracker with live feeds, biometric security, and automated tax reporting.', res:['135+ tokens tracked','Biometric auth','Tax reports'] },
-  { title:'LiteLMS', cat:'E-Learning', tech:'Next.js · Stripe · AWS', em:'📚', col:'#FC5C7D', desc:'Course marketplace with live streaming, AI-graded quizzes, certificate generation, and PayPal billing.', res:['5k+ courses hosted','Stripe & PayPal','AI grading'] },
-  { title:'NomadPR', cat:'Digital Marketing', tech:'WordPress · SEO · Meta Ads', em:'🌍', col:'#3FC380', desc:'Travel SEO + Meta retargeting -- 2k to 80k monthly organic visitors in 6 months.', res:['40x organic growth','80k/month','620% ROI'] },
+  { id:'trueodds', title:'TrueOdds', cat:'Web App', tech:'Next.js · Node.js · MongoDB', em:'🎯', col:'#FF9F43', link:'https://trueodds.ca', desc:'Canadian sports analytics -- real-time odds comparison & value bet detection across all major leagues.', res:['50k+ monthly users','20+ books real-time','Sub-200ms loads'] },
+  { id:'purnotashaj', title:'Purnota Shaj', cat:'E-Commerce', tech:'Next.js · NestJS · MongoDB', em:'🛍️', col:'#FF6B9D', link:'https://purnotashaj.shop', desc:'Full-featured e-commerce store built with Next.js frontend, NestJS backend, and MongoDB. Live and actively serving customers.', res:['Live production store','Next.js + NestJS stack','MongoDB powered'] },
+  { id:'urbannest', title:'UrbanNest', cat:'E-Commerce', tech:'Next.js · Stripe · MongoDB', em:'🏠', col:'#00C9FF', desc:'Luxury real-estate marketplace with virtual tours and Stripe subscription billing for premium listings.', res:['$2M+ properties listed','300% conversion lift','Stripe billing'] },
+  { id:'pulsify', title:'Pulsify Health', cat:'Web App', tech:'React · Node.js · PostgreSQL', em:'💊', col:'#4FFFB0', desc:'Healthcare SaaS with real-time vitals monitoring, appointment booking, and HIPAA-compliant storage.', res:['10k+ patients','HIPAA compliant','Real-time vitals'] },
+  { id:'godeliver', title:'GoDeliver', cat:'Hybrid App', tech:'React Native · Firebase', em:'🚚', col:'#FF6584', desc:'Food-delivery app -- 50k+ daily orders across 12 cities with live GPS tracking and in-app payments.', res:['50k+ daily orders','12 cities','4.8★ rating'] },
+  { id:'cryptolens', title:'CryptoLens', cat:'Web + Android', tech:'Flutter · Web3.js · Node.js', em:'📊', col:'#7c3aed', desc:'Multi-chain DeFi tracker with live feeds, biometric security, and automated tax reporting.', res:['135+ tokens tracked','Biometric auth','Tax reports'] },
+  { id:'litelms', title:'LiteLMS', cat:'E-Learning', tech:'Next.js · Stripe · AWS', em:'📚', col:'#FC5C7D', desc:'Course marketplace with live streaming, AI-graded quizzes, certificate generation, and PayPal billing.', res:['5k+ courses hosted','Stripe & PayPal','AI grading'] },
+  { id:'nomadpr', title:'NomadPR', cat:'Digital Marketing', tech:'WordPress · SEO · Meta Ads', em:'🌍', col:'#3FC380', desc:'Travel SEO + Meta retargeting -- 2k to 80k monthly organic visitors in 6 months.', res:['40x organic growth','80k/month','620% ROI'] },
 ];
 
 export const BLOG_POSTS = [
@@ -152,6 +153,7 @@ export const REVIEWS_1 = [
   {q:'5-star experience from discovery to launch. True partners.',n:'Sofia Martinez',r:'CMO, BoldBrand'},
   {q:'Delivered exactly what was promised -- precisely on time.',n:'Lena Fischer',r:'Product Head, EcoShop'},
 ];
+
 export const REVIEWS_2 = [
   {q:'TrueOdds performance after Aquron rebuilt it was night and day.',n:'Alex Chen',r:'CEO, TrueOdds.ca'},
   {q:'SEO: page 5 to page 1 for main keywords in 4 months.',n:'Ryan Park',r:'Marketing Director, LocalBiz'},
