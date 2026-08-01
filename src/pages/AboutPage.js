@@ -261,11 +261,11 @@ export default function AboutPage({ go }) {
       <div style={{ height:1, background:'linear-gradient(90deg,rgba(255,122,0,0.4),rgba(128,0,255,0.25),transparent)', marginBottom:18 }}/>
 
       <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(180,215,255,0.65)', fontSize:14.5, lineHeight:1.8, marginBottom:22 }}>
-        Full-stack architect and founder of Aquron with 5+ years building scalable digital products for 150+ clients across 6+ countries. Personally leads every major technical decision and client engagement.
+        Full-stack architect and founder of Aquron with 10+ years building scalable digital products for 150+ clients across 6+ countries. Personally leads every major technical decision and client engagement.
       </p>
 
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:10, marginBottom:20 }}>
-        {[['5+','Years Exp'],['150+','Projects'],['15+','Tech Stack']].map(([n,l])=>(
+        {[['10+','Years Exp'],['150+','Projects'],['15+','Tech Stack']].map(([n,l])=>(
           <div
             key={l}
             style={{
@@ -340,7 +340,7 @@ export default function AboutPage({ go }) {
                         CHRISTIAN ANKAN
                       </h3>
                       <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(0,201,255,0.6)', fontSize:12, fontWeight:600, letterSpacing:2, textTransform:'uppercase' }}>
-                        Director & Operations Manager
+                        Operations Manager
                       </p>
                     </div>
                   </div>
@@ -352,7 +352,7 @@ export default function AboutPage({ go }) {
                   </p>
 
                   <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:10, marginBottom:20 }}>
-                    {[['100%','On-Time'],['150+','Clients'],['5+','Years']].map(([n,l])=>(
+                    {[['100%','On-Time'],['150+','Clients'],['9+','Years']].map(([n,l])=>(
                       <div key={l} style={{ background:'rgba(0,201,255,0.04)', border:'1px solid rgba(0,201,255,0.1)', borderRadius:8, padding:'10px 6px', textAlign:'center' }}>
                         <div style={{ fontFamily:'Orbitron,monospace', fontSize:16, fontWeight:900, color:'#00C9FF', marginBottom:2 }}>{n}</div>
                         <div style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(255,255,255,0.35)', fontSize:10, letterSpacing:0.8, textTransform:'uppercase' }}>{l}</div>
