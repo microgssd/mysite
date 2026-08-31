@@ -211,7 +211,7 @@ export function AquronLogoCanvas({ size = 44 }) {
 
 // ─── FOOTER ──────────────────────────────────────────────
 function useGeoTime() {
-  const [info, setInfo] = React.useState({ time: '', city: '', tz: '' });
+  const [info, setInfo] = React.useState({ time: '', city: '', country: '', tz: '' });
   React.useEffect(() => {
     // Use public IP geolocation (no permission needed)
     const fetchGeo = async () => {
@@ -219,24 +219,41 @@ function useGeoTime() {
         const res = await fetch('https://ipapi.co/json/');
         const d = await res.json();
         const tz = d.timezone || 'UTC';
-        const city = d.city || d.country_name || '';
+        const city = d.city || '';
+        const country = d.country_name || '';
         const tick = () => {
           const now = new Date();
           const time = now.toLocaleTimeString('en-US', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: true });
-          setInfo({ time, city, tz });
+          setInfo({ time, city, country, tz });
         };
         tick();
         const id = setInterval(tick, 1000);
         return id;
       } catch {
-        // Fallback to browser local time
-        const tick = () => {
-          const t = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-          setInfo({ time: t, city: 'Your Location', tz: '' });
-        };
-        tick();
-        const id = setInterval(tick, 1000);
-        return id;
+        // Fallback: try second geo service
+        try {
+          const res2 = await fetch('https://api.ipgeolocation.io/ipgeo?apiKey=free');
+          const d2 = await res2.json();
+          const city2 = d2.city || d2.country_name || '';
+          const country2 = d2.country_name || '';
+          const tz2 = d2.time_zone?.name || 'UTC';
+          const tick2 = () => {
+            const now = new Date();
+            const time = now.toLocaleTimeString('en-US', { timeZone: tz2, hour: '2-digit', minute: '2-digit', hour12: true });
+            setInfo({ time, city: city2, country: country2, tz: tz2 });
+          };
+          tick2();
+          const id = setInterval(tick2, 1000);
+          return id;
+        } catch {
+          const tick = () => {
+            const t = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            setInfo({ time: t, city: '', country: '', tz: '' });
+          };
+          tick();
+          const id = setInterval(tick, 1000);
+          return id;
+        }
       }
     };
     let id;
@@ -330,7 +347,7 @@ export function Footer({ go }) {
             </p>
             {[
               { icon:'◈', label:'work2sayan@gmail.com' },
-              { icon:'◎', label:'Kolkata, India' },
+              { icon:'◎', label: [geo.city, geo.country].filter(Boolean).join(', ') || 'Locating...' },
               { icon:'◆', label:'Mon-Sat 9AM-8PM IST' },
             ].map((item,i) => (
               <div key={i} style={{ display:'flex', gap:8, alignItems:'flex-start', marginBottom:10 }}>
