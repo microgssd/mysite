@@ -253,7 +253,7 @@ export default function AboutPage({ go }) {
               textTransform:'uppercase'
             }}
           >
-            CEO & Development Head
+            Development Head
           </p>
         </div>
       </div>
