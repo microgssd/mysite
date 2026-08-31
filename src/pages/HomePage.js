@@ -255,6 +255,28 @@ function CyberStatsSection() {
 }
 
 
+// Geo-aware hero badge
+function GeoBadge() {
+  const [location, setLocation] = React.useState('Worldwide');
+  React.useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(d => {
+        const city = d.city || d.region || d.country_name || '';
+        const country = d.country_name || '';
+        setLocation(city && country && city !== country ? city + ', ' + country : country || city || 'Worldwide');
+      })
+      .catch(() => setLocation('Worldwide'));
+  }, []);
+  return (
+    <motion.div style={{ display:'inline-flex', alignItems:'center', gap:9, background:'rgba(0,201,255,0.08)', border:'1px solid rgba(0,201,255,0.28)', borderRadius:24, padding:'6px 18px', marginBottom:24, fontSize:'clamp(10px,1.5vw,13px)', color:'#00C9FF', fontWeight:700 }} initial={{ scale:0 }} animate={{ scale:1 }} transition={{ delay:.2, type:'spring' }}>
+      <span style={{ width:6, height:6, borderRadius:'50%', background:'#4FFFB0', display:'inline-block', animation:'pulse 2s infinite', boxShadow:'0 0 8px #4FFFB0' }} />
+      Trusted by 150+ clients · 6+ countries · {location}
+    </motion.div>
+  );
+}
+
+
 export default function HomePage({ go }) {
   const [selectedModal, setSelectedModal] = useState(null);
 
@@ -277,10 +299,7 @@ export default function HomePage({ go }) {
             <AquronLogoCanvas size={96} />
           </motion.div>
 
-          <motion.div style={{ display:'inline-flex', alignItems:'center', gap:9, background:'rgba(0,201,255,0.08)', border:'1px solid rgba(0,201,255,0.28)', borderRadius:24, padding:'6px 18px', marginBottom:24, fontSize:'clamp(10px,1.5vw,13px)', color:'#00C9FF', fontWeight:700 }} initial={{ scale:0 }} animate={{ scale:1 }} transition={{ delay:.2, type:'spring' }}>
-            <span style={{ width:6, height:6, borderRadius:'50%', background:'#4FFFB0', display:'inline-block', animation:'pulse 2s infinite', boxShadow:'0 0 8px #4FFFB0' }} />
-            Trusted by 150+ clients · 6+ countries · Kolkata, India
-          </motion.div>
+          <GeoBadge />
 
           <h1 style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(22px,4.5vw,58px)', fontWeight:900, lineHeight:1.1, marginBottom:12, color:'#fff', letterSpacing:'clamp(0px,0.02em,2px)', textShadow:'0 0 40px rgba(0,201,255,0.3)' }}>
             <span style={{ display:'block', fontSize:'clamp(11px,1.5vw,14px)', fontFamily:'Rajdhani,sans-serif', color:'rgba(0,201,255,0.7)', letterSpacing:'clamp(3px,0.5vw,8px)', textTransform:'uppercase', marginBottom:8, fontWeight:600 }}>
