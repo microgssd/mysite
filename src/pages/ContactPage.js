@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Reveal, SectionHeader } from '../components/index.js';
 
@@ -29,6 +29,17 @@ const LABEL = {
 };
 
 export default function ContactPage({ go }) {
+  const [visitorLocation, setVisitorLocation] = useState('Your Location');
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(d => {
+        const city = d.city || d.region || d.country_name || '';
+        const country = d.country_name || '';
+        setVisitorLocation(city && country && city !== country ? city + ', ' + country : country || city || 'Your Location');
+      })
+      .catch(() => setVisitorLocation('Your Location'));
+  }, []);
   const [form, setForm] = useState({ name:'', email:'', phone:'', service:'', budget:'', message:'' });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -44,15 +55,9 @@ export default function ContactPage({ go }) {
   });
 
   const submit = () => {
-    if (!form.name || !form.email || !form.message) {
-      alert('Please fill Name, Email and Message.');
-      return;
-    }
+    if (!form.name || !form.email || !form.message) { alert('Please fill Name, Email and Message.'); return; }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSent(true);
-    }, 1800);
+    setTimeout(() => { setLoading(false); setSent(true); }, 1800);
   };
 
   if (sent) return (
@@ -63,15 +68,12 @@ export default function ContactPage({ go }) {
           <motion.path d="M18 32 L27 41 L46 22" stroke="#4FFFB0" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength:0 }} animate={{ pathLength:1 }} transition={{ duration:0.6, delay:0.4 }}/>
         </svg>
       </motion.div>
-      <motion.h2 initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:.3 }} style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(20px,4vw,28px)', fontWeight:800, color:'#fff', marginBottom:12, marginTop:20, letterSpacing:1 }}>
-        TRANSMISSION SENT
-      </motion.h2>
+      <motion.h2 initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay:.3 }} style={{ fontFamily:'Orbitron,monospace', fontSize:'clamp(20px,4vw,28px)', fontWeight:800, color:'#fff', marginBottom:12, marginTop:20, letterSpacing:1 }}>TRANSMISSION SENT</motion.h2>
       <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:.45 }} style={{ color:'rgba(255,255,255,0.52)', fontSize:15, marginBottom:8 }}>
         We'll reply to <strong style={{ color:'#00C9FF' }}>{form.email}</strong> within 24 hours.
       </motion.p>
-      <motion.button className="btn-gold" onClick={() => setSent(false)} whileHover={{ scale:1.05 }}>
-        SEND ANOTHER
-      </motion.button>
+  
+      <motion.button className="btn-gold" onClick={() => setSent(false)} whileHover={{ scale:1.05 }}>SEND ANOTHER</motion.button>
     </div>
   );
 
@@ -84,51 +86,27 @@ export default function ContactPage({ go }) {
 
           <div className="contact-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1.7fr', gap:44, maxWidth:1050, margin:'0 auto' }}>
 
+            {/* Left info panel */}
             <Reveal direction="left">
               <div>
                 {[
                   { i:'✉', t:'Email', v:'work2sayan@gmail.com', h:'mailto:work2sayan@gmail.com', col:'#00C9FF' },
-                  { i:'📞', t:'Phone', col:'#00C9FF' },
-                  { i:'◎', t:'Location', v:'Kolkata, West Bengal, India', col:'#4FFFB0' },
+                  { i:'◎', t:'Location', v:visitorLocation, col:'#4FFFB0' },
                   { i:'◷', t:'Response Time', v:'Within 24 hours', col:'#FFD700' },
                   { i:'◈', t:'Working Hours', v:'Mon-Sat, 9AM-8PM IST', col:'#FC5C7D' },
                 ].map(c => (
-                  <motion.div
-                    key={c.t}
-                    style={{ display:'flex', gap:14, alignItems:'flex-start', marginBottom:18, padding:'12px 14px', borderRadius:8, border:'1px solid transparent' }}
-                    whileHover={{ borderColor:`${c.col}33`, background:`${c.col}06`, x:6 }}
-                  >
-                    <div style={{ width:40, height:40, background:`${c.col}10`, borderRadius:8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0, border:`1px solid ${c.col}33`, color:c.col, fontFamily:'monospace', fontWeight:700 }}>
-                      {c.i}
-                    </div>
-
+                  <motion.div key={c.t} style={{ display:'flex', gap:14, alignItems:'flex-start', marginBottom:18, padding:'12px 14px', borderRadius:8, border:'1px solid transparent' }}
+                    whileHover={{ borderColor:`${c.col}33`, background:`${c.col}06`, x:6 }}>
+                    <div style={{ width:40, height:40, background:`${c.col}10`, borderRadius:8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0, border:`1px solid ${c.col}33`, color:c.col, fontFamily:'monospace', fontWeight:700 }}>{c.i}</div>
                     <div>
-                      <p style={{ color:'rgba(255,255,255,0.3)', fontSize:9, fontWeight:700, textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:3, fontFamily:'Orbitron,monospace' }}>
-                        {c.t}
-                      </p>
-
-                      {c.t === 'Phone' ? (
-                        <>
-                          <a href="tel:7278135829" style={{ color:c.col, fontSize:13.5, textDecoration:'none', fontFamily:'Rajdhani,sans-serif', fontWeight:600, display:'block' }}>
-                            7278135829
-                          </a>
-                          <a href="tel:7003376094" style={{ color:c.col, fontSize:13.5, textDecoration:'none', fontFamily:'Rajdhani,sans-serif', fontWeight:600, display:'block' }}>
-                            7003376094
-                          </a>
-                        </>
-                      ) : c.h ? (
-                        <a href={c.h} style={{ color:c.col, fontSize:13.5, textDecoration:'none', fontFamily:'Rajdhani,sans-serif', fontWeight:600 }}>
-                          {c.v}
-                        </a>
-                      ) : (
-                        <p style={{ color:'rgba(255,255,255,0.75)', fontSize:13.5, fontFamily:'Rajdhani,sans-serif' }}>
-                          {c.v}
-                        </p>
-                      )}
+                      <p style={{ color:'rgba(255,255,255,0.3)', fontSize:9, fontWeight:700, textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:3, fontFamily:'Orbitron,monospace' }}>{c.t}</p>
+                      {c.h ? <a href={c.h} style={{ color:c.col, fontSize:13.5, textDecoration:'none', fontFamily:'Rajdhani,sans-serif', fontWeight:600 }}>{c.v}</a>
+                        : <p style={{ color:'rgba(255,255,255,0.75)', fontSize:13.5, fontFamily:'Rajdhani,sans-serif' }}>{c.v}</p>}
                     </div>
                   </motion.div>
                 ))}
 
+                {/* Cyber decorative element */}
                 <div style={{ marginTop:24, padding:'16px', background:'rgba(0,201,255,0.04)', border:'1px solid rgba(0,201,255,0.12)', borderRadius:8 }}>
                   <p style={{ fontFamily:'monospace', fontSize:11, color:'rgba(0,201,255,0.5)', lineHeight:1.8 }}>
                     <span style={{ color:'rgba(0,201,255,0.3)' }}>{'> '}</span>status: <span style={{ color:'#4FFFB0' }}>ONLINE</span><br/>
