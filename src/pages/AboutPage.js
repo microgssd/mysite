@@ -226,7 +226,7 @@ export default function AboutPage({ go }) {
               letterSpacing:1.5
             }}
           >
-            ⚡ CEO / LEAD DEV
+            ⚡ DEVELOPMENT HEAD
           </div>
 
           <h3
