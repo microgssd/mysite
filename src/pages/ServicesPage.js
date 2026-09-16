@@ -7,13 +7,13 @@ const GROUPS = [
   { label:'Web & E-Commerce', sub:'Websites and stores that perform, convert, and rank.', ids:['web-info','ecommerce'] },
   { label:'App Development', sub:'Native and cross-platform mobile experiences.', ids:['android','ios','hybrid'] },
   { label:'AI & Automation', sub:'Intelligent systems, bots, and ML-powered products.', ids:['ml-ai','ai-chatbot','telegram-bot'] },
+  { label:'Crypto & Web3', sub:'DeFi, NFTs, tokenization, white-label wallets, and smart contracts.', ids:['crypto-web3','tokenization','crypto-wallet'] },
   { label:'Growth & Platforms', sub:'Marketing, payments, SaaS, and content that converts.', ids:['digital','payment','blog','saas'] },
 ];
 
 export default function ServicesPage({ go }) {
   return (
     <div style={{ paddingTop:88, overflowX:'hidden' }}>
-      {/* Cyber grid bg */}
       <div style={{ position:'fixed', inset:0, backgroundImage:'linear-gradient(rgba(0,201,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,201,255,0.025) 1px,transparent 1px)', backgroundSize:'60px 60px', pointerEvents:'none', zIndex:0 }}/>
       <section className="section-pad" style={{ position:'relative', zIndex:1 }}>
         <div className="wrap">
@@ -25,7 +25,8 @@ export default function ServicesPage({ go }) {
             <div key={g.label} style={{ marginBottom:52 }}>
               <Reveal direction="left">
                 <div style={{ marginBottom:20, display:'flex', alignItems:'center', gap:12 }}>
-                  <motion.div style={{ width:3, height:24, background:'#00C9FF', borderRadius:2 }} animate={{ opacity:[0.5,1,0.5] }} transition={{ duration:2, repeat:Infinity }} />
+                  <motion.div style={{ width:3, height:24, background: g.label.includes('Crypto') ? '#F7931A' : '#00C9FF', borderRadius:2 }}
+                    animate={{ opacity:[0.5,1,0.5] }} transition={{ duration:2, repeat:Infinity }} />
                   <div>
                     <h2 style={{ fontFamily:'Orbitron,monospace', color:'#e0f0ff', fontSize:'clamp(14px,2vw,18px)', fontWeight:700, letterSpacing:1 }}>{g.label}</h2>
                     <p style={{ color:'rgba(255,255,255,0.38)', fontSize:13 }}>{g.sub}</p>
