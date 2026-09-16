@@ -380,6 +380,59 @@ const ICONS = {
       <text x="73" y="64" fill="#030412" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="monospace">AI</text>
     </svg>
   ),
+      'crypto-web3': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      <rect x="8" y="32" width="24" height="28" rx="12" stroke={col} strokeWidth="2" fill={`${col}12`}/>
+      <rect x="58" y="32" width="24" height="28" rx="12" stroke={col} strokeWidth="2" fill={`${col}12`}/>
+      <rect x="22" y="38" width="46" height="14" rx="7" stroke={col} strokeWidth="1.5" fill={`${col}18`}/>
+      <path d="M45 16 L58 38 L45 68 L32 38 Z" stroke={col} strokeWidth="2" fill={`${col}20`}/>
+      <path d="M32 38 L45 34 L58 38" stroke={col} strokeWidth="1.2" opacity="0.5"/>
+      <path d="M32 38 L45 42 L58 38" stroke={col} strokeWidth="1.2" opacity="0.35"/>
+      <circle cx="8" cy="46" r="4" fill={col} opacity="0.8">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="82" cy="46" r="4" fill={col} opacity="0.8">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" begin="0.9s" repeatCount="indefinite"/>
+      </circle>
+      <ellipse cx="45" cy="45" rx="36" ry="12" stroke={col} strokeWidth="0.8" strokeDasharray="4,4" fill="none" opacity="0.3"/>
+    </svg>
+  ),
+
+  'tokenization': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      <ellipse cx="45" cy="72" rx="28" ry="9" stroke={col} strokeWidth="1.5" fill={`${col}15`}/>
+      <rect x="17" y="55" width="56" height="17" stroke={col} strokeWidth="1.5" fill={`${col}10`}/>
+      <ellipse cx="45" cy="55" rx="28" ry="9" stroke={col} strokeWidth="1.5" fill={`${col}18`}/>
+      <rect x="17" y="38" width="56" height="17" stroke={col} strokeWidth="1.5" fill={`${col}12`}/>
+      <ellipse cx="45" cy="38" rx="28" ry="9" stroke={col} strokeWidth="1.5" fill={`${col}22`}/>
+      <rect x="17" y="22" width="56" height="16" stroke={col} strokeWidth="1.5" fill={`${col}15`}/>
+      <ellipse cx="45" cy="22" rx="28" ry="9" stroke={col} strokeWidth="2" fill={`${col}28`}/>
+      <text x="45" y="26" textAnchor="middle" fill={col} fontSize="12" fontWeight="bold" fontFamily="monospace" opacity="0.9">T</text>
+      <rect x="60" y="6" width="24" height="14" rx="3" fill={`${col}20`} stroke={col} strokeWidth="1"/>
+      <text x="72" y="16" textAnchor="middle" fill={col} fontSize="8" fontFamily="monospace" fontWeight="bold">RWA</text>
+      <line x1="60" y1="13" x2="55" y2="22" stroke={col} strokeWidth="1" strokeDasharray="2,2" opacity="0.5"/>
+    </svg>
+  ),
+
+  'crypto-wallet': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+      <rect x="22" y="6" width="36" height="68" rx="8" stroke={col} strokeWidth="1.8" fill={`${col}08`}/>
+      <line x1="22" y1="16" x2="58" y2="16" stroke={col} strokeWidth="1" opacity="0.4"/>
+      <line x1="22" y1="64" x2="58" y2="64" stroke={col} strokeWidth="1" opacity="0.4"/>
+      <rect x="27" y="20" width="26" height="18" rx="3" fill={`${col}20`} stroke={col} strokeWidth="1"/>
+      <circle cx="32" cy="26" r="3.5" fill={col} opacity="0.7"/>
+      <rect x="37" y="25" width="12" height="2" rx="1" fill={col} opacity="0.5"/>
+      <rect x="37" y="30" width="8" height="2" rx="1" fill={col} opacity="0.35"/>
+      <rect x="27" y="42" width="26" height="8" rx="2" fill={`${col}10`} stroke={col} strokeWidth="0.7" opacity="0.6"/>
+      <text x="40" y="48.5" textAnchor="middle" fill={col} fontSize="7" fontFamily="monospace" opacity="0.8">0.42 ETH</text>
+      <text x="30" y="60" fill={col} fontSize="9" fontFamily="monospace" opacity="0.8">Ξ</text>
+      <text x="39" y="60" fill={col} fontSize="9" fontFamily="monospace" opacity="0.65">₿</text>
+      <text x="48" y="60" fill={col} fontSize="9" fontFamily="monospace" opacity="0.5">◎</text>
+      <rect x="36" y="68" width="8" height="2.5" rx="1.2" fill={col} opacity="0.4"/>
+      <circle cx="70" cy="22" r="10" fill={`${col}12`} stroke={col} strokeWidth="1"/>
+      <text x="70" y="26" textAnchor="middle" fill={col} fontSize="8" fontFamily="monospace">W3</text>
+    </svg>
+  ),
 };
 
 const RANKS = {
