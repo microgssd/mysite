@@ -5,6 +5,140 @@ import { AquronLogoCanvas, Reveal, Marquee, CyberServiceCard, SectionHeader, Por
 
 const WORDS = ['Fluid Websites','Mobile Apps','E-Commerce','Digital Growth','Hybrid Apps','SEO Strategy'];
 
+
+// Crypto service vectors used by the HOME page cards.
+// These live here intentionally so the home page does not depend on the
+// separate CyberServiceCard/CRSprite implementation for the new crypto cards.
+const HOME_CRYPTO_ICONS = {
+  'crypto-web3': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none" aria-hidden="true">
+      <rect x="8" y="32" width="24" height="28" rx="12" stroke={col} strokeWidth="2" fill={`${col}12`}/>
+      <rect x="58" y="32" width="24" height="28" rx="12" stroke={col} strokeWidth="2" fill={`${col}12`}/>
+      <rect x="22" y="38" width="46" height="14" rx="7" stroke={col} strokeWidth="1.5" fill={`${col}18`}/>
+      <path d="M45 16 L58 38 L45 68 L32 38 Z" stroke={col} strokeWidth="2" fill={`${col}20`}/>
+      <path d="M32 38 L45 34 L58 38" stroke={col} strokeWidth="1.2" opacity="0.5"/>
+      <path d="M32 38 L45 42 L58 38" stroke={col} strokeWidth="1.2" opacity="0.35"/>
+      <circle cx="8" cy="46" r="4" fill={col} opacity="0.8">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="82" cy="46" r="4" fill={col} opacity="0.8">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" begin="0.9s" repeatCount="indefinite"/>
+      </circle>
+      <ellipse cx="45" cy="45" rx="36" ry="12" stroke={col} strokeWidth="0.8" strokeDasharray="4,4" fill="none" opacity="0.3"/>
+    </svg>
+  ),
+  'tokenization': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none" aria-hidden="true">
+      <ellipse cx="45" cy="72" rx="28" ry="9" stroke={col} strokeWidth="1.5" fill={`${col}15`}/>
+      <rect x="17" y="55" width="56" height="17" stroke={col} strokeWidth="1.5" fill={`${col}10`}/>
+      <ellipse cx="45" cy="55" rx="28" ry="9" stroke={col} strokeWidth="1.5" fill={`${col}18`}/>
+      <rect x="17" y="38" width="56" height="17" stroke={col} strokeWidth="1.5" fill={`${col}12`}/>
+      <ellipse cx="45" cy="38" rx="28" ry="9" stroke={col} strokeWidth="1.5" fill={`${col}22`}/>
+      <rect x="17" y="22" width="56" height="16" stroke={col} strokeWidth="1.5" fill={`${col}15`}/>
+      <ellipse cx="45" cy="22" rx="28" ry="9" stroke={col} strokeWidth="2" fill={`${col}28`}/>
+      <text x="45" y="26" textAnchor="middle" fill={col} fontSize="12" fontWeight="bold" fontFamily="monospace">T</text>
+      <rect x="60" y="6" width="24" height="14" rx="3" fill={`${col}20`} stroke={col} strokeWidth="1"/>
+      <text x="72" y="16" textAnchor="middle" fill={col} fontSize="8" fontFamily="monospace" fontWeight="bold">RWA</text>
+      <line x1="60" y1="13" x2="55" y2="22" stroke={col} strokeWidth="1" strokeDasharray="2,2" opacity="0.5"/>
+    </svg>
+  ),
+  'crypto-wallet': (col) => (
+    <svg width="90" height="90" viewBox="0 0 90 90" fill="none" aria-hidden="true">
+      <rect x="22" y="6" width="36" height="68" rx="8" stroke={col} strokeWidth="1.8" fill={`${col}08`}/>
+      <line x1="22" y1="16" x2="58" y2="16" stroke={col} strokeWidth="1" opacity="0.4"/>
+      <line x1="22" y1="64" x2="58" y2="64" stroke={col} strokeWidth="1" opacity="0.4"/>
+      <rect x="27" y="20" width="26" height="18" rx="3" fill={`${col}20`} stroke={col} strokeWidth="1"/>
+      <circle cx="32" cy="26" r="3.5" fill={col} opacity="0.7"/>
+      <rect x="37" y="25" width="12" height="2" rx="1" fill={col} opacity="0.5"/>
+      <rect x="37" y="30" width="8" height="2" rx="1" fill={col} opacity="0.35"/>
+      <rect x="27" y="42" width="26" height="8" rx="2" fill={`${col}10`} stroke={col} strokeWidth="0.7" opacity="0.6"/>
+      <text x="40" y="48.5" textAnchor="middle" fill={col} fontSize="7" fontFamily="monospace" opacity="0.8">0.42 ETH</text>
+      <text x="30" y="60" fill={col} fontSize="9" fontFamily="monospace" opacity="0.8">Ξ</text>
+      <text x="39" y="60" fill={col} fontSize="9" fontFamily="monospace" opacity="0.65">₿</text>
+      <text x="48" y="60" fill={col} fontSize="9" fontFamily="monospace" opacity="0.5">◎</text>
+      <rect x="36" y="68" width="8" height="2.5" rx="1.2" fill={col} opacity="0.4"/>
+      <circle cx="70" cy="22" r="10" fill={`${col}12`} stroke={col} strokeWidth="1"/>
+      <text x="70" y="26" textAnchor="middle" fill={col} fontSize="8" fontFamily="monospace">W3</text>
+    </svg>
+  ),
+};
+
+const HOME_CRYPTO_RANKS = {
+  'crypto-web3': 'S',
+  'tokenization': 'A',
+  'crypto-wallet': 'A',
+};
+
+function HomeCryptoServiceCard({ service, delay = 0, onClick }) {
+  const Icon = HOME_CRYPTO_ICONS[service.id];
+  const rank = HOME_CRYPTO_RANKS[service.id] || 'A';
+
+  return (
+    <motion.button
+      type="button"
+      onClick={onClick}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -5, scale: 1.015 }}
+      whileTap={{ scale: 0.985 }}
+      style={{
+        position: 'relative', minHeight: 330, padding: '18px 16px 17px',
+        border: `1px solid ${service.col}66`, borderRadius: 12,
+        background: 'linear-gradient(180deg,rgba(3,8,25,0.96),rgba(1,5,18,0.98))',
+        boxShadow: `inset 0 0 30px ${service.col}09, 0 0 18px ${service.col}08`,
+        color: '#fff', textAlign: 'left', cursor: 'pointer', overflow: 'hidden',
+        display: 'flex', flexDirection: 'column', fontFamily: 'inherit',
+      }}
+    >
+      {/* Corner brackets */}
+      <span style={{ position:'absolute', top:7, left:7, width:12, height:12, borderTop:`1px solid ${service.col}88`, borderLeft:`1px solid ${service.col}88` }} />
+      <span style={{ position:'absolute', top:7, right:7, width:12, height:12, borderTop:`1px solid ${service.col}88`, borderRight:`1px solid ${service.col}88` }} />
+      <span style={{ position:'absolute', bottom:7, left:7, width:12, height:12, borderBottom:`1px solid ${service.col}88`, borderLeft:`1px solid ${service.col}88` }} />
+      <span style={{ position:'absolute', bottom:7, right:7, width:12, height:12, borderBottom:`1px solid ${service.col}88`, borderRight:`1px solid ${service.col}88` }} />
+
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', position:'relative', zIndex:2 }}>
+        <span style={{ padding:'5px 10px', border:`1px solid ${service.col}77`, borderRadius:5, background:`${service.col}0d`, color:service.col, fontFamily:'Orbitron,monospace', fontSize:10, fontWeight:800, letterSpacing:1.5 }}>
+          {rank}-RANK
+        </span>
+        <span style={{ color:`${service.col}77`, fontFamily:'monospace', fontSize:8, letterSpacing:1 }}>00/{rank === 'S' ? '001' : '003'}</span>
+      </div>
+
+      <div style={{ height: 122, display:'flex', alignItems:'center', justifyContent:'center', marginTop: 4, position:'relative' }}>
+        <div style={{ position:'absolute', width:90, height:90, borderRadius:'50%', background:`radial-gradient(circle,${service.col}20,transparent 70%)`, filter:'blur(5px)' }} />
+        <motion.div
+          animate={{ y:[0,-3,0], filter:[`drop-shadow(0 0 5px ${service.col}55)`,`drop-shadow(0 0 14px ${service.col}aa)`,`drop-shadow(0 0 5px ${service.col}55)`] }}
+          transition={{ duration:3.2, repeat:Infinity, ease:'easeInOut', delay:delay + 0.3 }}
+          style={{ position:'relative', zIndex:1 }}
+        >
+          {Icon(service.col)}
+        </motion.div>
+      </div>
+
+      <div style={{ borderTop:`1px solid ${service.col}18`, paddingTop:14, marginTop:2 }}>
+        <h3 style={{ margin:0, color:'#fff', fontFamily:'Orbitron,monospace', fontSize:'clamp(10px,1vw,13px)', lineHeight:1.25, letterSpacing:0.5, textAlign:'center', textTransform:'uppercase' }}>
+          {service.title}
+        </h3>
+        <p style={{ margin:'8px 0 10px', color:'rgba(148,200,240,0.62)', fontFamily:'Rajdhani,sans-serif', fontSize:10, lineHeight:1.45, textAlign:'center', minHeight:30 }}>
+          {service.short}
+        </p>
+        <div style={{ display:'flex', flexWrap:'wrap', justifyContent:'center', gap:5 }}>
+          {service.tech.slice(0, 3).map((tech) => (
+            <span key={tech} style={{ padding:'3px 7px', border:`1px solid ${service.col}38`, borderRadius:3, color:`${service.col}cc`, background:`${service.col}08`, fontFamily:'monospace', fontSize:7.5, lineHeight:1 }}>
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginTop:'auto', paddingTop:13, textAlign:'center', color:service.col, fontFamily:'Orbitron,monospace', fontSize:10, fontWeight:800, letterSpacing:1 }}>
+        {service.title.split(' ').slice(0, 3).join(' ')} →
+      </div>
+    </motion.button>
+  );
+}
+
 function PremiumTyper() {
   const [index, setIndex] = useState(0);
   useEffect(() => {
@@ -343,7 +477,9 @@ export default function HomePage({ go }) {
           </Reveal>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(175px,1fr))', gap:15 }}>
             {SERVICES.map((s,i) => (
-              <CyberServiceCard key={s.id} service={s} delay={i*.06} onClick={() => go('service_'+s.id)} />
+              ['crypto-web3','tokenization','crypto-wallet'].includes(s.id) ?
+                <HomeCryptoServiceCard key={s.id} service={s} delay={i*.06} onClick={() => go('service_'+s.id)} /> :
+                <CyberServiceCard key={s.id} service={s} delay={i*.06} onClick={() => go('service_'+s.id)} />
             ))}
           </div>
         </div>
