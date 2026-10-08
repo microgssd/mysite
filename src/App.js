@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AuroraBackground from './components/AuroraBackground';
 import { CustomCursor, ScrollProgress, Navbar, Footer } from './components/index.js';
+import LoadingScreen from './components/LoadingScreen';
 import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
@@ -13,13 +14,48 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import './index.css';
 
+// Only show loading screen once per browser session
+const LOADING_KEY = 'aquron_loaded';
+
 export default function App() {
+  // On refresh / hard reload (not just tab switch), always show home
+  // We detect first render — state always starts at 'home'
   const [page, setPage] = useState('home');
-  const go = useCallback((p) => { setPage(p); window.scrollTo({top:0,behavior:'smooth'}); }, []);
+
+  // Loading screen: show once per session
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem(LOADING_KEY);
+    } catch {
+      return true;
+    }
+  });
+
+  const handleLoadingDone = useCallback(() => {
+    try { sessionStorage.setItem(LOADING_KEY, '1'); } catch {}
+    setLoading(false);
+  }, []);
+
+  const go = useCallback((p) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Prevent browser back/forward from navigating away — always stay on SPA
+  useEffect(() => {
+    const onPopState = () => {
+      window.history.pushState(null, '', window.location.href);
+      setPage('home');
+      window.scrollTo({ top: 0 });
+    };
+    window.history.pushState(null, '', window.location.href);
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   const renderPage = () => {
-    if (page.startsWith('service_')) return <ServiceDetailPage id={page.replace('service_','')} go={go} />;
-    if (page.startsWith('blog_')) return <BlogDetailPage id={parseInt(page.replace('blog_',''))} go={go} />;
+    if (page.startsWith('service_')) return <ServiceDetailPage id={page.replace('service_', '')} go={go} />;
+    if (page.startsWith('blog_')) return <BlogDetailPage id={parseInt(page.replace('blog_', ''))} go={go} />;
     switch (page) {
       case 'services':  return <ServicesPage go={go} />;
       case 'portfolio': return <PortfolioPage go={go} />;
@@ -34,21 +70,28 @@ export default function App() {
   const pageKey = page.startsWith('blog_') ? 'blog_d' : page.startsWith('service_') ? 'svc_d' : page;
 
   return (
-    <div style={{ minHeight:'100vh', background:'var(--bg)', position:'relative' }}>
-      <CustomCursor />
-      <ScrollProgress />
-      <AuroraBackground />
-      <div className="tech-grid" />
-      <Navbar page={page} go={go} />
-      <AnimatePresence mode="wait">
-        <motion.main key={pageKey}
-          initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-10 }}
-          transition={{ duration:.38, ease:[0.16,1,0.3,1] }}
-          style={{ position:'relative', zIndex:2 }}>
-          {renderPage()}
-        </motion.main>
-      </AnimatePresence>
-      <Footer go={go} />
-    </div>
+    <>
+      {/* Loading screen — renders on top of everything */}
+      <AnimatePresence>{loading && <LoadingScreen onDone={handleLoadingDone} />}</AnimatePresence>
+
+      <div style={{ minHeight: '100vh', background: 'var(--bg)', position: 'relative' }}>
+        <CustomCursor />
+        <ScrollProgress />
+        <AuroraBackground />
+        <div className="tech-grid" />
+        <Navbar page={page} go={go} />
+        <AnimatePresence mode="wait">
+          <motion.main key={pageKey}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: .38, ease: [0.16, 1, 0.3, 1] }}
+            style={{ position: 'relative', zIndex: 2 }}>
+            {renderPage()}
+          </motion.main>
+        </AnimatePresence>
+        <Footer go={go} />
+      </div>
+    </>
   );
 }
