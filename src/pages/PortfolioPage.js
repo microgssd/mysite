@@ -95,7 +95,29 @@ export default function PortfolioPage({ go }) {
                 <div style={{ display:'flex', flexWrap:'wrap', gap:7, marginBottom:24 }}>
                   {(modal.res||modal.results||[]).map(r => <div key={r} style={{ background:'rgba(79,255,176,0.08)', border:'1px solid rgba(79,255,176,0.25)', color:'#4FFFB0', fontSize:12, fontWeight:600, padding:'6px 14px', borderRadius:5, fontFamily:'Rajdhani,sans-serif' }}>✓ {r}</div>)}
                 </div>
-                {modal.link && <a href={modal.link} target="_blank" rel="noreferrer" style={{ display:'inline-flex', alignItems:'center', gap:8, background:`linear-gradient(135deg,${modal.col},#4FFFB0)`, color:'#030412', fontSize:13, fontWeight:700, padding:'11px 22px', borderRadius:7, textDecoration:'none', fontFamily:'Orbitron,monospace', letterSpacing:0.8 }}>↗ VISIT LIVE SITE</a>}
+                {modal.link && (
+                  <div style={{ marginBottom:18 }}>
+                    {/* Live site screenshot preview */}
+                    <div style={{ borderRadius:8, overflow:'hidden', border:`1px solid ${modal.col}33`, marginBottom:12, position:'relative', background:'rgba(0,0,0,0.4)' }}>
+                      <div style={{ padding:'8px 12px', background:'rgba(0,0,0,0.5)', borderBottom:`1px solid ${modal.col}22`, display:'flex', alignItems:'center', gap:8 }}>
+                        <div style={{ display:'flex', gap:4 }}>
+                          <div style={{ width:8, height:8, borderRadius:'50%', background:'#ff5f57' }}/>
+                          <div style={{ width:8, height:8, borderRadius:'50%', background:'#ffbd2e' }}/>
+                          <div style={{ width:8, height:8, borderRadius:'50%', background:'#28ca41' }}/>
+                        </div>
+                        <span style={{ fontFamily:'monospace', fontSize:9, color:`${modal.col}77`, letterSpacing:0.5 }}>{modal.link}</span>
+                      </div>
+                      <iframe
+                        src={modal.link}
+                        title={modal.title + ' preview'}
+                        style={{ width:'100%', height:220, border:'none', display:'block', opacity:0.9 }}
+                        sandbox="allow-scripts allow-same-origin"
+                        loading="lazy"
+                      />
+                    </div>
+                    <a href={modal.link} target="_blank" rel="noreferrer" style={{ display:'inline-flex', alignItems:'center', gap:8, background:`linear-gradient(135deg,${modal.col},#4FFFB0)`, color:'#030412', fontSize:13, fontWeight:700, padding:'11px 22px', borderRadius:7, textDecoration:'none', fontFamily:'Orbitron,monospace', letterSpacing:0.8 }}>↗ VISIT LIVE SITE</a>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
