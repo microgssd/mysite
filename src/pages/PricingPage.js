@@ -170,12 +170,52 @@ const SERVICES = [
         features: ['Proprietary LLM','Multi-agent system','Voice interface','Custom training pipeline','White-label','Dedicated team','SLA guarantee','IP ownership','Training','24/7 support'] },
     ]
   },
+  {
+    id: 'crypto-web3', label: 'Crypto & Web3', icon: '🔗', col: '#F7931A',
+    plans: [
+      { name: 'dApp Starter', price: 4999, popular: false, period: 'project',
+        features: ['Smart contract (ERC-20/721)','Hardhat dev environment','MetaMask integration','Basic dApp frontend','Testnet + mainnet deploy','Contract verification on Etherscan','2 revision rounds','6-week delivery','Audit-ready code','Full documentation'] },
+      { name: 'DeFi Protocol', price: 14999, popular: true, period: 'project',
+        features: ['Custom DeFi protocol design','Multi-contract architecture','DEX integration (Uniswap/PCS)','Chainlink oracle feeds','Staking & yield farming','React dApp frontend','3 revision rounds','14-week delivery','Gas optimisation','Security pre-audit'] },
+      { name: 'Enterprise Web3', price: 39999, popular: false, period: 'project',
+        features: ['Full protocol suite','Layer-2 deployment (Arbitrum/Base)','DAO governance module','Multi-sig treasury (Gnosis Safe)','NFT marketplace','On-chain analytics dashboard','Unlimited revisions','24-week delivery','Third-party smart contract audit','12 months support'] },
+      { name: 'Custom', price: null, popular: false, period: 'quote',
+        features: ['Chain-specific R&D','ZK proof systems','Custom consensus layer','Institutional custody setup','Regulatory compliance review','Dedicated Web3 team','SLA guarantee','Full IP ownership','Team training','24/7 support'] },
+    ]
+  },
+  {
+    id: 'tokenization', label: 'Tokenization & RWA', icon: '🪙', col: '#9945FF',
+    plans: [
+      { name: 'Token Launch', price: 2999, popular: false, period: 'project',
+        features: ['ERC-20 / BEP-20 token','Vesting & cliff schedules','Token distribution portal','Basic investor dashboard','Liquidity pool setup (Uniswap)','Airdrop distribution engine','2 revision rounds','4-week delivery','Audit-ready contracts','Full documentation'] },
+      { name: 'RWA Platform', price: 12999, popular: true, period: 'project',
+        features: ['Security token (ERC-1400/ERC-3643)','KYC/AML integration (Onfido/Sumsub)','Fractional ownership contracts','Cap table management portal','Investor onboarding flow','Secondary market support','3 revision rounds','16-week delivery','Legal doc templates','Compliance review'] },
+      { name: 'Full Launchpad', price: 29999, popular: false, period: 'project',
+        features: ['IDO/IEO launchpad platform','Multi-asset tokenization','White-label crypto wallet','Multi-sig treasury management','DAO governance system','On-chain analytics','Unlimited revisions','24-week delivery','Third-party audit','12 months support'] },
+      { name: 'Custom', price: null, popular: false, period: 'quote',
+        features: ['Institutional-grade tokenization','CBDC infrastructure','Regulated STO with legal advisory','Custom compliance layer','Dedicated team assigned','SLA guarantee','Full IP transfer','Legal coordination support','Team training','24/7 support'] },
+    ]
+  },
+  {
+    id: 'crypto-wallet', label: 'White-Label Wallet', icon: '👛', col: '#14F195',
+    plans: [
+      { name: 'Wallet MVP', price: 7999, popular: false, period: 'project',
+        features: ['3 chains (ETH/BNB/SOL)','iOS + Android app','HD wallet (BIP39/BIP44)','Send / receive / history','QR code scanner','Push notifications','2 revision rounds','8-week delivery','Basic security audit','Both app store launches'] },
+      { name: 'Full Wallet', price: 19999, popular: true, period: 'project',
+        features: ['10+ chains supported','In-app DEX token swap','NFT gallery & collectibles','Buy crypto via fiat (MoonPay)','Biometric + PIN authentication','WalletConnect v2 support','3 revision rounds','16-week delivery','Full white-label branding','Admin analytics dashboard'] },
+      { name: 'Enterprise Wallet', price: 44999, popular: false, period: 'project',
+        features: ['Unlimited chain support','Hardware wallet (Ledger/Trezor)','DeFi protocol integrations','Institutional custody module','Custom token list management','Multi-language support','Unlimited revisions','24-week delivery','Full third-party security audit','12 months support'] },
+      { name: 'Custom', price: null, popular: false, period: 'quote',
+        features: ['Exchange integration','Custodial + non-custodial hybrid','Regulatory licensing support','Custom staking modules','Dedicated team assigned','SLA guarantee','Full IP ownership','Ongoing development','Team training','24/7 support'] },
+    ]
+  },
 ];
 
 const SERVICE_GROUPS = [
   { label: 'Web & E-Commerce', ids: ['web-info','ecommerce'] },
   { label: 'Mobile Apps', ids: ['android','ios','hybrid'] },
   { label: 'AI & Automation', ids: ['ml-ai','ai-chatbot','telegram-bot'] },
+  { label: 'Crypto & Web3', ids: ['crypto-web3','tokenization','crypto-wallet'] },
   { label: 'Growth & Platforms', ids: ['digital','payment','blog','saas'] },
 ];
 
