@@ -70,7 +70,7 @@ export default function AboutPage({ go }) {
                 </span>
               </h1>
               <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(180,220,255,0.65)', fontSize:15.5, lineHeight:1.88, marginBottom:15 }}>
-                Founded in Kolkata, India, Aquron started as a two-person studio and grew into a full-service digital agency. We have shipped products used by thousands across 6+ countries.
+                Founded as a two-person studio and grew into a full-service digital agency. We have shipped products used by thousands across 6+ countries.
               </p>
               <p style={{ fontFamily:'Rajdhani,sans-serif', color:'rgba(180,220,255,0.65)', fontSize:15.5, lineHeight:1.88, marginBottom:32 }}>
                 Like water (aqua), we adapt to every challenge — finding the most elegant, precise path. Like precision engineers, we deploy the right solution at the right moment.
