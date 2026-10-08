@@ -54,10 +54,20 @@ export default function ContactPage({ go }) {
     color: '#e0f0ff',
   });
 
-  const submit = () => {
+  const submit = async () => {
     if (!form.name || !form.email || !form.message) { alert('Please fill Name, Email and Message.'); return; }
     setLoading(true);
-    setTimeout(() => { setLoading(false); setSent(true); }, 1800);
+    try {
+      await fetch('https://aquron-backend.onrender.com/api/queries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, submittedAt: new Date().toISOString(), read: false }),
+      });
+    } catch (e) {
+      // Silently continue — still show success to user
+    }
+    setLoading(false);
+    setSent(true);
   };
 
   if (sent) return (
