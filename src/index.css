@@ -511,3 +511,12 @@ select:focus {
 }
 
 @keyframes scanDown { 0%{top:-2px} 100%{top:100vh} }
+
+/* ── Portfolio section: desktop grid / mobile slider ── */
+.portfolio-desktop-grid { display: grid !important; }
+.portfolio-mobile-slider { display: none !important; }
+
+@media (max-width: 768px) {
+  .portfolio-desktop-grid { display: none !important; }
+  .portfolio-mobile-slider { display: block !important; }
+}
