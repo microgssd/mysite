@@ -20,7 +20,14 @@ const LOADING_KEY = 'aquron_loaded';
 export default function App() {
   // On refresh / hard reload (not just tab switch), always show home
   // We detect first render — state always starts at 'home'
-  const [page, setPage] = useState('home');
+  // Remember the current page across refresh (but not across new tabs/sessions)
+  const [page, setPage] = useState(() => {
+    try {
+      return sessionStorage.getItem('aquron_page') || 'home';
+    } catch {
+      return 'home';
+    }
+  });
 
   // Loading screen: show once per session
   const [loading, setLoading] = useState(() => {
@@ -38,6 +45,7 @@ export default function App() {
 
   const go = useCallback((p) => {
     setPage(p);
+    try { sessionStorage.setItem('aquron_page', p); } catch {}
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -45,8 +53,7 @@ export default function App() {
   useEffect(() => {
     const onPopState = () => {
       window.history.pushState(null, '', window.location.href);
-      setPage('home');
-      window.scrollTo({ top: 0 });
+      // Stay on current page — don't force home on back button
     };
     window.history.pushState(null, '', window.location.href);
     window.addEventListener('popstate', onPopState);
