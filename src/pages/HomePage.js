@@ -7,7 +7,6 @@ import {
   Marquee,
   CyberServiceCard,
   SectionHeader,
-  PortfolioCard
 } from '../components/index.js';
 
 const WORDS = [
@@ -1911,6 +1910,148 @@ function GeoBadge() {
    HOME PAGE
 ========================================================= */
 
+// ── Home portfolio: slider on mobile, cyberpunk grid on desktop ──────
+function PortfolioSection({ go, setSelectedModal }) {
+  const items = PORTFOLIO.slice(0, 6);
+  const [slide, setSlide] = useState(0);
+  const [dragStart, setDragStart] = useState(0);
+  const trackRef = React.useRef(null);
+
+  // Mobile shows 2 per page, desktop shows all
+  const totalSlides = Math.ceil(items.length / 2);
+
+  const next = () => setSlide(s => Math.min(s + 1, totalSlides - 1));
+  const prev = () => setSlide(s => Math.max(s - 1, 0));
+
+  const onTouchStart = (e) => setDragStart(e.touches[0].clientX);
+  const onTouchEnd   = (e) => {
+    const dx = dragStart - e.changedTouches[0].clientX;
+    if (dx > 40) next();
+    else if (dx < -40) prev();
+  };
+
+  return (
+    <section className="section-pad" style={{ background:'rgba(0,201,255,0.018)', position:'relative', overflow:'hidden' }}>
+      <div style={{ position:'absolute', inset:0, backgroundImage:'linear-gradient(rgba(0,201,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,201,255,0.02) 1px,transparent 1px)', backgroundSize:'40px 40px', pointerEvents:'none' }}/>
+
+      <div className="wrap" style={{ position:'relative', zIndex:1 }}>
+        <SectionHeader label="MISSION LOG" title="Ops We're Proud Of"
+          sub="A curated selection of successful deployments across industries and platforms."
+          labelColor="#4FFFB0" />
+
+        {/* ── DESKTOP grid (hidden on mobile) ── */}
+        <div className="portfolio-desktop-grid" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:20, marginBottom:28 }}>
+          {items.map((p, i) => (
+            <motion.div key={p.id||i}
+              initial={{ opacity:0, y:24 }} animate={{ opacity:1, y:0 }}
+              transition={{ delay:i*0.07, type:'spring', stiffness:180 }}
+              whileHover={{ y:-8, scale:1.02 }}
+              onClick={() => setSelectedModal(p)}
+              style={{ background:'rgba(3,6,24,0.95)', border:`1px solid ${p.col}33`, borderRadius:12,
+                overflow:'hidden', cursor:'pointer', position:'relative',
+                boxShadow:`0 4px 24px rgba(0,0,0,0.5)`,
+                transition:'border-color 0.3s, box-shadow 0.3s' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor=p.col+'88'; e.currentTarget.style.boxShadow=`0 12px 40px rgba(0,0,0,0.6), 0 0 20px ${p.col}18`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor=p.col+'33'; e.currentTarget.style.boxShadow='0 4px 24px rgba(0,0,0,0.5)'; }}>
+              {/* Top color bar */}
+              <div style={{ height:3, background:`linear-gradient(90deg,${p.col},${p.col}44,transparent)` }}/>
+              {/* Scan line */}
+              <motion.div style={{ position:'absolute', left:0, right:0, height:1, background:`linear-gradient(90deg,transparent,${p.col}44,transparent)` }}
+                animate={{ top:['3px','100%'] }} transition={{ duration:3+i*0.4, repeat:Infinity, ease:'linear' }}/>
+              <div style={{ padding:'18px 18px 16px' }}>
+                <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:12 }}>
+                  <div style={{ width:48, height:48, background:`${p.col}10`, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', fontSize:24, border:`1px solid ${p.col}33`, flexShrink:0 }}>{p.em}</div>
+                  <span style={{ fontFamily:'Orbitron,monospace', fontSize:9, color:p.col, border:`1px solid ${p.col}44`, borderRadius:4, padding:'3px 8px', letterSpacing:1, background:`${p.col}0f` }}>{p.cat.toUpperCase()}</span>
+                </div>
+                <h3 style={{ fontFamily:'Orbitron,monospace', fontSize:13, fontWeight:800, color:'#c8e8ff', marginBottom:7, letterSpacing:0.5 }}>{p.title}</h3>
+                <p style={{ color:'rgba(160,200,240,0.55)', fontSize:12.5, lineHeight:1.6, marginBottom:12, fontFamily:'Rajdhani,sans-serif' }}>{p.desc}</p>
+                <div style={{ display:'flex', flexWrap:'wrap', gap:5, marginBottom:10 }}>
+                  {(p.res||[]).map(r => <span key={r} style={{ background:`${p.col}0d`, border:`1px solid ${p.col}33`, color:p.col, fontSize:10, fontWeight:600, padding:'3px 9px', borderRadius:4, fontFamily:'Rajdhani,sans-serif' }}>✓ {r}</span>)}
+                </div>
+                <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                  <p style={{ color:`${p.col}55`, fontSize:10, fontFamily:'monospace' }}>{p.tech}</p>
+                  {p.link && <span style={{ fontFamily:'Orbitron,monospace', fontSize:9, color:p.col, opacity:0.6, letterSpacing:1 }}>↗ LIVE</span>}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ── MOBILE slider (hidden on desktop) ── */}
+        <div className="portfolio-mobile-slider">
+          {/* Slide track */}
+          <div ref={trackRef} style={{ overflow:'hidden', width:'100%', touchAction:'pan-y' }}
+            onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+            <motion.div style={{ display:'flex', gap:12 }}
+              animate={{ x: `calc(-${slide * 100}% - ${slide * 12}px)` }}
+              transition={{ type:'spring', stiffness:300, damping:30 }}>
+              {Array.from({ length: totalSlides }).map((_, si) => (
+                <div key={si} style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, minWidth:'100%', flexShrink:0 }}>
+                  {items.slice(si*2, si*2+2).map((p, i) => (
+                    <motion.div key={p.id||i}
+                      whileTap={{ scale:0.97 }}
+                      onClick={() => setSelectedModal(p)}
+                      style={{ background:'rgba(3,6,24,0.95)', border:`1px solid ${p.col}44`, borderRadius:10, overflow:'hidden', cursor:'pointer', position:'relative' }}>
+                      <div style={{ height:2, background:`linear-gradient(90deg,${p.col},transparent)` }}/>
+                      <div style={{ padding:'12px' }}>
+                        {/* Corner brackets */}
+                        <div style={{ position:'absolute', top:5, left:5, width:8, height:8, borderTop:`1.5px solid ${p.col}88`, borderLeft:`1.5px solid ${p.col}88` }}/>
+                        <div style={{ position:'absolute', top:5, right:5, width:8, height:8, borderTop:`1.5px solid ${p.col}88`, borderRight:`1.5px solid ${p.col}88` }}/>
+                        <div style={{ width:36, height:36, background:`${p.col}12`, borderRadius:8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, border:`1px solid ${p.col}33`, marginBottom:8 }}>{p.em}</div>
+                        <span style={{ fontFamily:'Orbitron,monospace', fontSize:8, color:p.col, letterSpacing:0.8, display:'block', marginBottom:5 }}>{p.cat.toUpperCase()}</span>
+                        <h3 style={{ fontFamily:'Orbitron,monospace', fontSize:10, fontWeight:800, color:'#c8e8ff', marginBottom:6, lineHeight:1.3 }}>{p.title}</h3>
+                        <div style={{ display:'flex', flexDirection:'column', gap:3, marginBottom:8 }}>
+                          {(p.res||[]).slice(0,2).map(r => <span key={r} style={{ color:p.col, fontSize:9, fontFamily:'Rajdhani,sans-serif', display:'flex', alignItems:'center', gap:3 }}>✓ {r}</span>)}
+                        </div>
+                        <p style={{ color:`${p.col}55`, fontSize:9, fontFamily:'monospace', lineHeight:1.3 }}>{p.tech}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Navigation */}
+          <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:16, padding:'0 4px' }}>
+            <motion.button onClick={prev} disabled={slide===0}
+              style={{ width:36, height:36, borderRadius:8, background:'rgba(0,201,255,0.08)', border:'1px solid rgba(0,201,255,0.2)', color: slide===0 ? 'rgba(0,201,255,0.2)' : '#00C9FF', fontSize:16, cursor: slide===0 ? 'default' : 'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}
+              whileHover={slide>0 ? { scale:1.1 } : {}}>‹</motion.button>
+
+            {/* Dots */}
+            <div style={{ display:'flex', gap:7, alignItems:'center' }}>
+              {Array.from({ length:totalSlides }).map((_,i) => (
+                <motion.div key={i} onClick={() => setSlide(i)} style={{ borderRadius:'50%', cursor:'pointer',
+                  background: i===slide ? '#00C9FF' : 'rgba(0,201,255,0.2)',
+                  boxShadow: i===slide ? '0 0 8px rgba(0,201,255,0.7)' : 'none' }}
+                  animate={{ width: i===slide ? 20 : 7, height: 7 }}
+                  transition={{ type:'spring', stiffness:300 }}/>
+              ))}
+            </div>
+
+            <motion.button onClick={next} disabled={slide===totalSlides-1}
+              style={{ width:36, height:36, borderRadius:8, background:'rgba(0,201,255,0.08)', border:'1px solid rgba(0,201,255,0.2)', color: slide===totalSlides-1 ? 'rgba(0,201,255,0.2)' : '#00C9FF', fontSize:16, cursor: slide===totalSlides-1 ? 'default' : 'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}
+              whileHover={slide<totalSlides-1 ? { scale:1.1 } : {}}>›</motion.button>
+          </div>
+
+          {/* Slide counter */}
+          <p style={{ textAlign:'center', fontFamily:'Orbitron,monospace', fontSize:9, color:'rgba(0,201,255,0.35)', letterSpacing:1.5, marginTop:8 }}>
+            {slide*2+1}–{Math.min(slide*2+2,items.length)} OF {items.length}
+          </p>
+        </div>
+
+        <div style={{ textAlign:'center', marginTop:28 }}>
+          <motion.button className="btn-outline" onClick={() => go('portfolio')} whileHover={{ scale:1.04 }}
+            style={{ fontFamily:'Orbitron,monospace', letterSpacing:1.5, fontSize:12 }}>
+            VIEW FULL MISSION LOG →
+          </motion.button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 export default function HomePage({ go }) {
   const [selectedModal, setSelectedModal] =
     useState(null);
@@ -2289,95 +2430,14 @@ export default function HomePage({ go }) {
       </section>
 
       {/* =================================================
-          PORTFOLIO
+          PORTFOLIO — slider on mobile, featured grid on desktop
       ================================================= */}
-
-      <section
-        className="section-pad"
-        style={{
-          background:
-            'rgba(0,201,255,0.018)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'linear-gradient(rgba(0,201,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,201,255,0.02) 1px,transparent 1px)',
-            backgroundSize: '40px 40px',
-            pointerEvents: 'none'
-          }}
-        />
-
-        <div
-          className="wrap"
-          style={{
-            position: 'relative',
-            zIndex: 1
-          }}
-        >
-          <SectionHeader
-            label="MISSION LOG"
-            title="Ops We're Proud Of"
-            sub="A curated selection of successful deployments across industries and platforms."
-            labelColor="#4FFFB0"
-          />
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns:
-                'repeat(auto-fit,minmax(280px,1fr))',
-              gap: 22
-            }}
-          >
-            {PORTFOLIO.slice(0, 3).map(
-              (p, i) => (
-                <PortfolioCard
-                  key={i}
-                  p={p}
-                  delay={i * 0.08}
-                  onClick={() =>
-                    setSelectedModal(p)
-                  }
-                />
-              )
-            )}
-          </div>
-
-          <div
-            style={{
-              textAlign: 'center',
-              marginTop: 34
-            }}
-          >
-            <motion.button
-              className="btn-outline"
-              onClick={() =>
-                go('portfolio')
-              }
-              whileHover={{
-                scale: 1.04
-              }}
-              style={{
-                fontFamily:
-                  'Orbitron,monospace',
-                letterSpacing: 1.5,
-                fontSize: 12
-              }}
-            >
-              VIEW FULL MISSION LOG →
-            </motion.button>
-          </div>
-        </div>
-      </section>
+      <PortfolioSection go={go} setSelectedModal={setSelectedModal} />
 
       {/* =================================================
           REVIEWS
       ================================================= */}
+
 
       <section
         style={{
