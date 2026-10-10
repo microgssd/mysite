@@ -1912,7 +1912,7 @@ function GeoBadge() {
 
 // ── Home portfolio: slider on mobile, cyberpunk grid on desktop ──────
 function PortfolioSection({ go, setSelectedModal }) {
-  const items = PORTFOLIO.slice(0, 6);
+  const items = PORTFOLIO;
   const [slide, setSlide] = useState(0);
   const [dragStart, setDragStart] = useState(0);
   const trackRef = React.useRef(null);
@@ -1960,8 +1960,24 @@ function PortfolioSection({ go, setSelectedModal }) {
                 animate={{ top:['3px','100%'] }} transition={{ duration:3+i*0.4, repeat:Infinity, ease:'linear' }}/>
               <div style={{ padding:'18px 18px 16px' }}>
                 <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:12 }}>
-                  <div style={{ width:48, height:48, background:`${p.col}10`, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', fontSize:24, border:`1px solid ${p.col}33`, flexShrink:0 }}>{p.em}</div>
-                  <span style={{ fontFamily:'Orbitron,monospace', fontSize:9, color:p.col, border:`1px solid ${p.col}44`, borderRadius:4, padding:'3px 8px', letterSpacing:1, background:`${p.col}0f` }}>{p.cat.toUpperCase()}</span>
+                  <div style={{ position:'relative' }}>
+                    <div style={{ width:48, height:48, background:`${p.col}10`, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', fontSize:24, border:`1px solid ${p.col}33`, flexShrink:0 }}>{p.em}</div>
+                    {p.hot && (
+                      <motion.div style={{ position:'absolute', top:-10, right:-10, fontSize:18, filter:'drop-shadow(0 0 6px rgba(255,120,0,0.9))' }}
+                        animate={{ y:[0,-3,0], rotate:[-5,5,-5], scale:[1,1.15,1] }} transition={{ duration:1.2, repeat:Infinity, ease:'easeInOut' }}>
+                        🔥
+                      </motion.div>
+                    )}
+                  </div>
+                  <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:4 }}>
+                    {p.hot && (
+                      <motion.span style={{ fontFamily:'Orbitron,monospace', fontSize:8, color:'#FF4500', background:'rgba(255,69,0,0.12)', border:'1px solid rgba(255,69,0,0.5)', borderRadius:4, padding:'2px 8px', letterSpacing:1, boxShadow:'0 0 8px rgba(255,69,0,0.4)' }}
+                        animate={{ opacity:[0.7,1,0.7], boxShadow:['0 0 6px rgba(255,69,0,0.3)','0 0 14px rgba(255,69,0,0.7)','0 0 6px rgba(255,69,0,0.3)'] }} transition={{ duration:1.5, repeat:Infinity }}>
+                        🔥 HOT
+                      </motion.span>
+                    )}
+                    <span style={{ fontFamily:'Orbitron,monospace', fontSize:9, color:p.col, border:`1px solid ${p.col}44`, borderRadius:4, padding:'3px 8px', letterSpacing:1, background:`${p.col}0f` }}>{p.cat.toUpperCase()}</span>
+                  </div>
                 </div>
                 <h3 style={{ fontFamily:'Orbitron,monospace', fontSize:13, fontWeight:800, color:'#c8e8ff', marginBottom:7, letterSpacing:0.5 }}>{p.title}</h3>
                 <p style={{ color:'rgba(160,200,240,0.55)', fontSize:12.5, lineHeight:1.6, marginBottom:12, fontFamily:'Rajdhani,sans-serif' }}>{p.desc}</p>
@@ -1997,7 +2013,13 @@ function PortfolioSection({ go, setSelectedModal }) {
                         {/* Corner brackets */}
                         <div style={{ position:'absolute', top:5, left:5, width:8, height:8, borderTop:`1.5px solid ${p.col}88`, borderLeft:`1.5px solid ${p.col}88` }}/>
                         <div style={{ position:'absolute', top:5, right:5, width:8, height:8, borderTop:`1.5px solid ${p.col}88`, borderRight:`1.5px solid ${p.col}88` }}/>
-                        <div style={{ width:36, height:36, background:`${p.col}12`, borderRadius:8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, border:`1px solid ${p.col}33`, marginBottom:8 }}>{p.em}</div>
+                        <div style={{ position:'relative', width:36, height:36, marginBottom:8 }}>
+                          <div style={{ width:36, height:36, background:`${p.col}12`, borderRadius:8, display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, border:`1px solid ${p.col}33` }}>{p.em}</div>
+                          {p.hot && (
+                            <motion.div style={{ position:'absolute', top:-8, right:-8, fontSize:14, filter:'drop-shadow(0 0 4px rgba(255,120,0,0.9))' }}
+                              animate={{ y:[0,-2,0], scale:[1,1.2,1] }} transition={{ duration:1.2, repeat:Infinity }}>🔥</motion.div>
+                          )}
+                        </div>
                         <span style={{ fontFamily:'Orbitron,monospace', fontSize:8, color:p.col, letterSpacing:0.8, display:'block', marginBottom:5 }}>{p.cat.toUpperCase()}</span>
                         <h3 style={{ fontFamily:'Orbitron,monospace', fontSize:10, fontWeight:800, color:'#c8e8ff', marginBottom:6, lineHeight:1.3 }}>{p.title}</h3>
                         <div style={{ display:'flex', flexDirection:'column', gap:3, marginBottom:8 }}>
