@@ -1,0 +1,25 @@
+{
+  "short_name": "Aquron",
+  "name": "Aquron \u2014 Fluid Digital Solutions",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#04071a",
+  "background_color": "#04071a",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
